@@ -1,10 +1,10 @@
 CC=bgxlc
 OPT=-O3
 
-all : testneon
+all : testqpx
 
-iutneon : sleefsimdsp.c helperneon.h iut.c
-	$(CC) $(OPT) -DENABLE_NEON iut.c sleefsimdsp.c -o iutneon -lm
+iutqpx : sleefsimddp.c helperqpx.h iut.c
+	$(CC) $(OPT) -DENABLE_QPX iut.c sleefsimddp.c -o iutqpx -lm
 
 ../tester/tester :
 	cd ../tester; make tester
@@ -12,15 +12,15 @@ iutneon : sleefsimdsp.c helperneon.h iut.c
 ../tester/testeru1 :
 	cd ../tester; make testeru1
 
-../tester/testersp :
-	cd ../tester; make testersp
+../tester/tester :
+	cd ../tester; make tester
 
-../tester/testerspu1 :
-	cd ../tester; make testerspu1
+../tester/testeru1 :
+	cd ../tester; make testeru1
 
-testneon : iutneon ../tester/testersp ../tester/testerspu1
-	../tester/testersp --flushtozero ./iutneon
-	../tester/testerspu1 --flushtozero ./iutneon
+testqpx : iutqpx ../tester/tester ../tester/testeru1
+	../tester/tester --flushtozero ./iutqpx
+	../tester/testeru1 --flushtozero ./iutqpx
 
 clean :
-	rm -f *~ *.o *.s iutsse2 iutavx iutavx2 iutfma4 iutneon
+	rm -f *~ *.o *.s iutsse2 iutavx iutavx2 iutfma4 iutneon iutqpx
