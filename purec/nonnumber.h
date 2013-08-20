@@ -11,6 +11,11 @@
 #define NANf __builtin_nanf("")
 #define INFINITY __builtin_inf()
 #define INFINITYf __builtin_inff()
+#elif defined(__xlc__)
+
+#define NANf NAN
+#define INFINITYf INFINITY
+
 #else
 
 #include <bits/nan.h>
