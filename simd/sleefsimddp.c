@@ -626,7 +626,11 @@ vdouble xacos(vdouble d) {
   x = vmul_vd_vd_vd(x, y);
   x = vsqrt_vd_vd(x);
   x = vmulsign_vd_vd_vd(atan2k(x, vabs_vd_vd(d)), d);
+#ifdef ENABLE_QPX
+  y = vsel_vd_vm_vd_vd(vlt_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d(M_PI), vcast_vd_d(0.0));
+#else
   y = (vdouble)vand_vm_vm_vm(vlt_vm_vd_vd(d, vcast_vd_d(0)), (vmask)vcast_vd_d(M_PI));
+#endif
   x = vadd_vd_vd_vd(x, y);
   return x;
 }
