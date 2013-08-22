@@ -604,7 +604,11 @@ vdouble xasin(vdouble d) {
   y = vsub_vd_vd_vd(vcast_vd_d(1), d);
   x = vmul_vd_vd_vd(x, y);
   x = vsqrt_vd_vd(x);
+#ifdef ENABLE_QPX
+  x = vsel_vd_vm_vd_vd(visnan_vm_vd(x), vec_splats(NAN), atan2k(vabs_vd_vd(d), x));
+#else
   x = (vdouble)vor_vm_vm_vm(visnan_vm_vd(x), (vmask)atan2k(vabs_vd_vd(d), x));
+#endif
   return vmulsign_vd_vd_vd(x, d);
 }
 
