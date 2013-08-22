@@ -159,7 +159,10 @@ static INLINE vdouble vsel_vd_vm_vd_vd(vmask mask, vdouble x, vdouble y) {
 #define vsel_vf_vm_vf_vf vsel_vd_vm_vd_vd
 
 static INLINE vint vsel_vi_vd_vd_vi_vi(vdouble d0, vdouble d1, vint x, vint y) {
-  return vrint_vi_vd(vsel_vd_vm_vd_vd(vlt_vm_vd_vd(d0, d1), vcast_vd_vi(x), vcast_vd_vi(y)));
+  vint r;
+
+  F04(j) r.v[j] = (d0[j] < d1[j]) ? x.v[j] : y.v[j];
+  return r;
 }
 
 //
