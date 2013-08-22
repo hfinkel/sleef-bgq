@@ -6,11 +6,11 @@
 #include <string.h>
 
 typedef vector4double vdouble;
-typedef struct { int v[4]; } vint;
+typedef struct { int v[4] __attribute__((aligned(16))); } vint;
 #define vmask vdouble
 
 #define vfloat vdouble
-typedef struct { long v[4]; } vint2;
+typedef struct { long v[4] __attribute__((aligned(32))); } vint2;
 
 #define ENABLE_FMA_DP
 #define ENABLE_FMA_SP
@@ -228,17 +228,19 @@ static INLINE vdouble visinf2(vdouble d, vdouble m) {
 }
 
 static INLINE vdouble vpow2i_vd_vi(vint q) {
-  double y[4];
+  vdouble r;
   F04(j) {
     long z = ((long)(q.v[j] + 0x3ff)) << 52;
-    memcpy(&y[j], &z, sizeof(double));
+    double y;
+    memcpy(&y, &z, sizeof(double));
+    r[j] = y;
   }
 
-  return vec_ld(0, y);
+  return r;
 }
 
 static INLINE vdouble vldexp_vd_vd_vi(vdouble x, vint q) {
-  double y[4], z[4];
+  vdouble u, v;
   F04(j) {
     int m;
     long n;
@@ -249,14 +251,16 @@ static INLINE vdouble vldexp_vd_vd_vi(vdouble x, vint q) {
     m = m < 0     ? 0     : m;
     m = m > 0x7ff ? 0x7ff : m;
     n = ((long)m) << 52;
-    memcpy(&y[j], &n, sizeof(double));
+    double y;
+    memcpy(&y, &n, sizeof(double));
+    u[j] = y;
     n = ((long)(q.v[j] + 0x3ff)) << 52;
-    memcpy(&z[j], &n, sizeof(double));
+    memcpy(&y, &n, sizeof(double));
+    v[j] = y;
   }
 
-  vdouble u = vec_ld(0, y);
   x = vec_mul(vec_mul(vec_mul(vec_mul(x, u), u), u), u);
-  return vec_mul(x, vec_ld(0, z));
+  return vec_mul(x, v);
 }
 
 static INLINE vint vilogbp1_vi_vd(vdouble d) {

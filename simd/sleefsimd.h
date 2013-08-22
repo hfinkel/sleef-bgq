@@ -128,11 +128,11 @@ static void vstoreui2(int32_t *p, vint2 v) { vst1q_s32(p, v); }
 #define VECTLENSP 4
 
 typedef vector4double vdouble;
-typedef struct { int v[4]; } vint;
+typedef struct { int v[4] __attribute__((aligned(16))); } vint;
 #define vmask vdouble
 
 #define vfloat vdouble
-typedef struct { long v[4]; } vint2;
+typedef struct { long v[4] __attribute__((aligned(32))); } vint2;
 
 #define F04(i) for (int i = 0; i < 4; ++i)
 
