@@ -8,8 +8,10 @@
 #include <inttypes.h>
 
 #include <math.h>
+#ifndef __xlc__
 #include <bits/nan.h>
 #include <bits/inf.h>
+#endif
 
 #include <unistd.h>
 #include <assert.h>

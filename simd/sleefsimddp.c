@@ -25,6 +25,10 @@
 #include "helperfma4.h"
 #endif
 
+#ifdef ENABLE_QPX
+#include "helperqpx.h"
+#endif
+
 //
 
 #include "dd.h"
