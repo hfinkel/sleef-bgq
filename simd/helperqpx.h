@@ -132,7 +132,7 @@ static INLINE vfloat vsqrt_vf_vf(vfloat x) {
 static INLINE vdouble vrecsqrt_vd_vd(vdouble d) {
   vdouble e = vec_rsqrte(d), c = vec_splats(1.5);
   vdouble h = vec_sub(vec_mul(d, c), d);
-  for (int i = 0; i < 2; ++i)
+  for (int i = 0; i < 3; ++i)
     e = vec_mul(e, vec_sub(c, vec_mul(h, vec_mul(e, e))));
   return e;
 }
