@@ -222,7 +222,7 @@ static INLINE vdouble vsign_vd_vd(vdouble d) {
 }
 
 static INLINE vdouble vmulsign_vd_vd_vd(vdouble x, vdouble y) {
-  return vec_mul(vsign_vd_vd(x), vsign_vd_vd(y));
+  return vec_cpsgn(vec_mul(vsign_vd_vd(x), vsign_vd_vd(y)), x);
 }
 
 static INLINE vmask visinf_vm_vd(vdouble d) {
