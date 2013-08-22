@@ -82,7 +82,11 @@ vdouble xsin(vdouble d) {
 
   s = vmul_vd_vd_vd(d, d);
 
+#ifdef ENABLE_QPX
+  d = vec_mul(d, (vdouble)vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1))));
+#else
   d = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1)), (vmask)vcast_vd_d(-0.0)), (vmask)d);
+#endif
 
   u = vcast_vd_d(-7.97255955009037868891952e-18);
   u = vmla_vd_vd_vd_vd(u, s, vcast_vd_d(2.81009972710863200091251e-15));
