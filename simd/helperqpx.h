@@ -15,9 +15,6 @@ typedef struct { long v[4] __attribute__((aligned(32))); } vint2;
 #define ENABLE_FMA_DP
 #define ENABLE_FMA_SP
 
-#define TODO vec_splats(0.0)
-
-
 //
 
 #define F04(i) for (int i = 0; i < 4; ++i)
@@ -93,9 +90,21 @@ static INLINE vfloat vfmapn_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return v
 static INLINE vfloat vfmanp_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmadd(x, y, z); }
 static INLINE vfloat vfmann_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmsub(x, y, z); }
 
-static INLINE vfloat vdiv_vf_vf_vf(vfloat x, vfloat y) { return TODO; }
-static INLINE vfloat vrec_vf_vf(vfloat x) { return TODO; }
-static INLINE vfloat vsqrt_vf_vf(vfloat x) { return TODO; }
+static INLINE vfloat vrecsqrt_vf_vf(vfloat d) {
+  vfloat e = vec_rsqrtes(d), c = vec_splats(1.5);
+  vfloat h = vec_sub(vec_mul(d, c), d);
+  return vec_mul(e, vec_sub(c, vec_mul(h, vec_mul(e, e))));
+}
+
+#define ENABLE_RECSQRT_SP
+
+static INLINE vfloat vrec_vf_vf(vfloat x) {
+  vfloat e = vec_res(x), c = vec_splats(1.0);
+  return vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
+}
+
+static INLINE vfloat vdiv_vf_vf_vf(vfloat x, vfloat y) { return vec_mul(x, vrec_vf_vf(y)); }
+static INLINE vfloat vsqrt_vf_vf(vfloat x) { return vdiv_vf_vf_vf(vec_splats(1.0), vrecsqrt_vf_vf(x)); }
 
 //
 
@@ -117,10 +126,25 @@ static INLINE vfloat vsqrt_vf_vf(vfloat x) { return TODO; }
 #define vfmanp_vd_vd_vd_vd vfmanp_vf_vf_vf_vf
 #define vfmann_vd_vd_vd_vd vfmann_vf_vf_vf_vf
 
+static INLINE vdouble vrecsqrt_vd_vd(vdouble d) {
+  vdouble e = vec_rsqrte(d), c = vec_splats(1.5);
+  vdouble h = vec_sub(vec_mul(d, c), d);
+  for (int i = 0; i < 2; ++i)
+    e = vec_mul(e, vec_sub(c, vec_mul(h, vec_mul(e, e))));
+  return e;
+}
 
-static INLINE vdouble vdiv_vd_vd_vd(vdouble x, vdouble y) { return TODO; }
-static INLINE vdouble vrec_vd_vd(vdouble x) { return TODO; }
-static INLINE vdouble vsqrt_vd_vd(vdouble x) { return TODO; }
+#define ENABLE_RECSQRT_DP
+
+static INLINE vdouble vrec_vd_vd(vdouble x) {
+  vdouble e = vec_re(x), c = vec_splats(1.0);
+  for (int i = 0; i < 2; ++i)
+    e = vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
+  return e;
+}
+
+static INLINE vdouble vdiv_vd_vd_vd(vdouble x, vdouble y) { return vec_mul(x, vrec_vd_vd(y)); }
+static INLINE vdouble vsqrt_vd_vd(vdouble x) { return vdiv_vd_vd_vd(vec_splats(1.0), vrecsqrt_vd_vd(x)); }
 
 //
 
