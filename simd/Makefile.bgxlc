@@ -19,8 +19,8 @@ iutqpx : sleefsimddp.c helperqpx.h iut.c
 	cd ../tester; make testeru1
 
 testqpx : iutqpx ../tester/tester ../tester/testeru1
-	../tester/tester --flushtozero ./iutqpx
-	../tester/testeru1 --flushtozero ./iutqpx
+	../tester/tester ./iutqpx
+	../tester/testeru1 ./iutqpx
 
 clean :
 	rm -f *~ *.o *.s iutsse2 iutavx iutavx2 iutfma4 iutneon iutqpx
