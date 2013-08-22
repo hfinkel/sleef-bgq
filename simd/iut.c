@@ -31,7 +31,7 @@ int detectFeature() {
 
   if (setjmp(sigjmp) == 0) {
 #ifdef ENABLE_DP
-    double s[VECTLENDP];
+    double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
     int i;
     for(i=0;i<VECTLENDP;i++) {
       s[i] = 1.0;
@@ -125,7 +125,7 @@ typedef struct {
 #ifdef ENABLE_DP
 
 double xxsin(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -141,7 +141,7 @@ double xxsin(double d) {
 }
 
 double xxcos(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -157,7 +157,7 @@ double xxcos(double d) {
 }
 
 double xxtan(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -173,7 +173,7 @@ double xxtan(double d) {
 }
 
 double xxasin(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -189,7 +189,7 @@ double xxasin(double d) {
 }
 
 double xxacos(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -205,7 +205,7 @@ double xxacos(double d) {
 }
 
 double xxatan(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -221,7 +221,7 @@ double xxatan(double d) {
 }
 
 double xxlog(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -237,7 +237,7 @@ double xxlog(double d) {
 }
 
 double xxexp(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -253,7 +253,7 @@ double xxexp(double d) {
 }
 
 double2 xxsincos(double d) {
-  double s[VECTLENDP], t[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP))), t[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -278,7 +278,7 @@ double2 xxsincos(double d) {
 }
 
 double xxsinh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -294,7 +294,7 @@ double xxsinh(double d) {
 }
 
 double xxcosh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -310,7 +310,7 @@ double xxcosh(double d) {
 }
 
 double xxtanh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -326,7 +326,7 @@ double xxtanh(double d) {
 }
 
 double xxasinh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -342,7 +342,7 @@ double xxasinh(double d) {
 }
 
 double xxacosh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -358,7 +358,7 @@ double xxacosh(double d) {
 }
 
 double xxatanh(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -374,7 +374,7 @@ double xxatanh(double d) {
 }
 
 double xxcbrt(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -390,7 +390,7 @@ double xxcbrt(double d) {
 }
 
 double xxexp2(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -406,7 +406,7 @@ double xxexp2(double d) {
 }
 
 double xxexp10(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -422,7 +422,7 @@ double xxexp10(double d) {
 }
 
 double xxexpm1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -438,7 +438,7 @@ double xxexpm1(double d) {
 }
 
 double xxlog10(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -454,7 +454,7 @@ double xxlog10(double d) {
 }
 
 double xxlog1p(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -470,7 +470,7 @@ double xxlog1p(double d) {
 }
 
 double xxpow(double x, double y) {
-  double s[VECTLENDP], t[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP))), t[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -497,7 +497,7 @@ double xxpow(double x, double y) {
 }
 
 double xxatan2(double y, double x) {
-  double s[VECTLENDP], t[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP))), t[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -519,7 +519,7 @@ double xxatan2(double y, double x) {
 }
 
 double xxldexp(double x, int q) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int t[4];
   int i;
   for(i=0;i<VECTLENDP;i++) {
@@ -548,7 +548,7 @@ double xxldexp(double x, int q) {
 }
 
 double xxsin_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -564,7 +564,7 @@ double xxsin_u1(double d) {
 }
 
 double xxcos_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -580,7 +580,7 @@ double xxcos_u1(double d) {
 }
 
 double xxtan_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -596,7 +596,7 @@ double xxtan_u1(double d) {
 }
 
 double xxasin_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -612,7 +612,7 @@ double xxasin_u1(double d) {
 }
 
 double xxacos_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -628,7 +628,7 @@ double xxacos_u1(double d) {
 }
 
 double xxatan_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -644,7 +644,7 @@ double xxatan_u1(double d) {
 }
 
 double xxatan2_u1(double y, double x) {
-  double s[VECTLENDP], t[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP))), t[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -666,7 +666,7 @@ double xxatan2_u1(double y, double x) {
 }
 
 double xxlog_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -682,7 +682,7 @@ double xxlog_u1(double d) {
 }
 
 double2 xxsincos_u1(double d) {
-  double s[VECTLENDP], t[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP))), t[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -707,7 +707,7 @@ double2 xxsincos_u1(double d) {
 }
 
 double xxcbrt_u1(double d) {
-  double s[VECTLENDP];
+  double s[VECTLENDP] __attribute__((aligned(8*VECTLENDP)));
   int i;
   for(i=0;i<VECTLENDP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
