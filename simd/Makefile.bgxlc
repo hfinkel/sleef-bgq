@@ -4,7 +4,7 @@ OPT=-O3
 all : testqpx
 
 iutqpx : sleefsimddp.c helperqpx.h iut.c
-	$(CC) $(OPT) -DENABLE_QPX iut.c sleefsimddp.c -o iutqpx -lm
+	$(CC) $(OPT) -g -DENABLE_QPX iut.c sleefsimddp.c -o iutqpx -lm
 
 ../tester/tester :
 	cd ../tester; make tester
