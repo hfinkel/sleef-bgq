@@ -104,7 +104,7 @@ static INLINE vfloat vrec_vf_vf(vfloat x) {
 }
 
 static INLINE vfloat vdiv_vf_vf_vf(vfloat x, vfloat y) { return vec_mul(x, vrec_vf_vf(y)); }
-static INLINE vfloat vsqrt_vf_vf(vfloat x) { return vdiv_vf_vf_vf(vec_splats(1.0), vrecsqrt_vf_vf(x)); }
+static INLINE vfloat vsqrt_vf_vf(vfloat x) { return vrec_vf_vf(vrecsqrt_vf_vf(x)); }
 
 //
 
@@ -144,7 +144,7 @@ static INLINE vdouble vrec_vd_vd(vdouble x) {
 }
 
 static INLINE vdouble vdiv_vd_vd_vd(vdouble x, vdouble y) { return vec_mul(x, vrec_vd_vd(y)); }
-static INLINE vdouble vsqrt_vd_vd(vdouble x) { return vdiv_vd_vd_vd(vec_splats(1.0), vrecsqrt_vd_vd(x)); }
+static INLINE vdouble vsqrt_vd_vd(vdouble x) { return vrec_vd_vd(vrecsqrt_vd_vd(x)); }
 
 //
 
