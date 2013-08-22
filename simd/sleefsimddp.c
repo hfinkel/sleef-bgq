@@ -83,7 +83,7 @@ vdouble xsin(vdouble d) {
   s = vmul_vd_vd_vd(d, d);
 
 #ifdef ENABLE_QPX
-  d = vec_mul(d, (vdouble)vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1))));
+  d = vec_mul(d, vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1))));
 #else
   d = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1)), (vmask)vcast_vd_d(-0.0)), (vmask)d);
 #endif
@@ -132,7 +132,11 @@ vdouble xsin_u1(vdouble d) {
   x = ddmul_vd2_vd2_vd2(t, x);
   u = vadd_vd_vd_vd(x.x, x.y);
 
+#ifdef ENABLE_QPX
+  u = vec_mul(u, vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1))));
+#else
   u = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1)), (vmask)vcast_vd_d(-0.0)), (vmask)u);
+#endif
 
   return u;
 }
@@ -152,7 +156,11 @@ vdouble xcos(vdouble d) {
 
   s = vmul_vd_vd_vd(d, d);
 
+#ifdef ENABLE_QPX
+  d = vec_mul(d, vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(0))));
+#else
   d = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(0)), (vmask)vcast_vd_d(-0.0)), (vmask)d);
+#endif
 
   u = vcast_vd_d(-7.97255955009037868891952e-18);
   u = vmla_vd_vd_vd_vd(u, s, vcast_vd_d(2.81009972710863200091251e-15));
@@ -199,7 +207,11 @@ vdouble xcos_u1(vdouble d) {
   x = ddmul_vd2_vd2_vd2(t, x);
   u = vadd_vd_vd_vd(x.x, x.y);
 
+#ifdef ENABLE_QPX
+  u = vec_mul(u, vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(0))));
+#else
   u = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(0)), (vmask)vcast_vd_d(-0.0)), (vmask)u);
+#endif
 
   return u;
 }
@@ -249,14 +261,27 @@ vdouble2 xsincos(vdouble d) {
   r.y = vsel_vd_vm_vd_vd(m, ry, rx);
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(2));
+#ifdef ENABLE_QPX
+  r.x = vec_mul(r.x, vec_neg(m));
+#else
   r.x = vreinterpret_vd_vm(vxor_vm_vm_vm(vand_vm_vm_vm(m, vreinterpret_vm_vd(vcast_vd_d(-0.0))), vreinterpret_vm_vd(r.x)));
+#endif
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(vadd_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(2)), vcast_vi_i(2));
+#ifdef ENABLE_QPX
+  r.y = vec_mul(r.y, vec_neg(m));
+#else
   r.y = vreinterpret_vd_vm(vxor_vm_vm_vm(vand_vm_vm_vm(m, vreinterpret_vm_vd(vcast_vd_d(-0.0))), vreinterpret_vm_vd(r.y)));
+#endif
 
   m = visinf_vm_vd(d);
+#ifdef ENABLE_QPX
+  r.x = vsel_vd_vm_vd_vd(m, vec_splats(NAN), r.x);
+  r.y = vsel_vd_vm_vd_vd(m, vec_splats(NAN), r.y);
+#else
   r.x = (vdouble)vor_vm_vm_vm(m, (vmask)r.x);
   r.y = (vdouble)vor_vm_vm_vm(m, (vmask)r.y);
+#endif
 
   return r;
 }
@@ -308,14 +333,27 @@ vdouble2 xsincos_u1(vdouble d) {
   r.y = vsel_vd_vm_vd_vd(m, ry, rx);
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(2));
+#ifdef ENABLE_QPX
+  r.x = vec_mul(r.x, vec_neg(m));
+#else
   r.x = vreinterpret_vd_vm(vxor_vm_vm_vm(vand_vm_vm_vm(m, vreinterpret_vm_vd(vcast_vd_d(-0.0))), vreinterpret_vm_vd(r.x)));
+#endif
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(vadd_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(2)), vcast_vi_i(2));
+#ifdef ENABLE_QPX
+  r.y = vec_mul(r.y, vec_neg(m));
+#else
   r.y = vreinterpret_vd_vm(vxor_vm_vm_vm(vand_vm_vm_vm(m, vreinterpret_vm_vd(vcast_vd_d(-0.0))), vreinterpret_vm_vd(r.y)));
+#endif
 
   m = visinf_vm_vd(d);
+#ifdef ENABLE_QPX
+  r.x = vsel_vd_vm_vd_vd(m, vec_splats(NAN), r.x);
+  r.y = vsel_vd_vm_vd_vd(m, vec_splats(NAN), r.y);
+#else
   r.x = (vdouble)vor_vm_vm_vm(m, (vmask)r.x);
   r.y = (vdouble)vor_vm_vm_vm(m, (vmask)r.y);
+#endif
 
   return r;
 }
@@ -336,7 +374,11 @@ vdouble xtan(vdouble d) {
   s = vmul_vd_vd_vd(x, x);
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1));
+#ifdef ENABLE_QPX
+  x = vec_mul(x, vec_neg(m));
+#else
   x = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(m, (vmask)vcast_vd_d(-0.0)), (vmask)x);
+#endif
 
   u = vcast_vd_d(1.01419718511083373224408e-05);
   u = vmla_vd_vd_vd_vd(u, s, vcast_vd_d(-2.59519791585924697698614e-05));
@@ -358,7 +400,11 @@ vdouble xtan(vdouble d) {
 
   u = vsel_vd_vm_vd_vd(m, vrec_vd_vd(u), u);
 
+#ifdef ENABLE_QPX
+  u = vsel_vd_vm_vd_vd(visinf_vm_vd(d), vec_splats(NAN), u);
+#else
   u = (vdouble)vor_vm_vm_vm(visinf_vm_vd(d), (vmask)u);
+#endif
 
   return u;
 }
