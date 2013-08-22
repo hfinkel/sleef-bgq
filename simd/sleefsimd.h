@@ -122,6 +122,32 @@ static void vstoreui2(int32_t *p, vint2 v) { vst1q_s32(p, v); }
 #define ENABLE_SP
 #endif
 
+#ifdef ENABLE_QPX
+
+#define VECTLENDP 4
+#define VECTLENSP 4
+
+typedef vector4double vdouble;
+typedef struct { int v[4]; } vint;
+#define vmask vdouble
+
+#define vfloat vdouble
+typedef struct { long v[4]; } vint2;
+
+#define F04(i) for (int i = 0; i < 4; ++i)
+
+static vdouble vloadu(double *p) { return vec_ld(0, p); }
+static void vstoreu(double *p, vdouble v) { vec_st(v, 0, p); }
+
+static vfloat vloaduf(float *p) { return vec_ld(0, p); }
+static void vstoreuf(float *p, vfloat v) { vec_st(v, 0, p); }
+
+static vint2 vloadui2(int32_t *p) { vint2 r; F04(j) r.v[j] = p[j]; return r; }
+static void vstoreui2(int32_t *p, vint2 v) { F04(j) p[j] = v.v[j]; }
+
+#define ENABLE_DP
+
+#endif
 
 #ifdef ENABLE_DP
 typedef struct {

@@ -536,7 +536,11 @@ double xxldexp(double x, int q) {
   vint b;
 
   a = vloadu(s);
+#ifdef ENABLE_QPX
+  F04(j) b.v[j] = t[j];
+#else
   b = _mm_loadu_si128((__m128i *)t);
+#endif
   a = xldexp(a, b);
   vstoreu(s, a);
 
