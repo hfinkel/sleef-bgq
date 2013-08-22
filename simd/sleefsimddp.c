@@ -424,9 +424,14 @@ vdouble xtan_u1(vdouble d) {
   s = ddadd2_vd2_vd2_vd(s, vmul_vd_vd_vd(u, vcast_vd_d(-PI4_D*2)));
 
   m = veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1));
+#ifdef ENABLE_QPX
+  s.x = vec_mul(s.x, vec_neg(m));
+  s.y = vec_mul(s.y, vec_neg(m));
+#else
   vmask n = vand_vm_vm_vm(m, (vmask)vcast_vd_d(-0.0));
   s.x = (vdouble)vxor_vm_vm_vm((vmask)s.x, n);
   s.y = (vdouble)vxor_vm_vm_vm((vmask)s.y, n);
+#endif
 
   t = s;
   s = ddsqu_vd2_vd2(s);
@@ -506,9 +511,14 @@ static INLINE vdouble2 atan2k_u1(vdouble2 y, vdouble2 x) {
 
   q = vsel_vi_vd_vd_vi_vi(x.x, vcast_vd_d(0), vcast_vi_i(-2), vcast_vi_i(0));
   p = vlt_vm_vd_vd(x.x, vcast_vd_d(0));
+#ifdef ENABLE_QPX
+  x.x = vec_mul(x.x, vec_neg(p));
+  x.y = vec_mul(x.y, vec_neg(p));
+#else
   p = vand_vm_vm_vm(p, (vmask)vcast_vd_d(-0.0));
   x.x = (vdouble)vxor_vm_vm_vm((vmask)x.x, p);
   x.y = (vdouble)vxor_vm_vm_vm((vmask)x.y, p);
+#endif
 
   q = vsel_vi_vd_vd_vi_vi(x.x, y.x, vadd_vi_vi_vi(q, vcast_vi_i(1)), q);
   p = vlt_vm_vd_vd(x.x, y.x);
@@ -553,9 +563,17 @@ vdouble xatan2(vdouble y, vdouble x) {
   r = vmulsign_vd_vd_vd(r, x);
   r = vsel_vd_vm_vd_vd(vor_vm_vm_vm(visinf_vm_vd(x), veq_vm_vd_vd(x, vcast_vd_d(0))), vsub_vd_vd_vd(vcast_vd_d(M_PI/2), visinf2(x, vmulsign_vd_vd_vd(vcast_vd_d(M_PI/2), x))), r);
   r = vsel_vd_vm_vd_vd(visinf_vm_vd(y), vsub_vd_vd_vd(vcast_vd_d(M_PI/2), visinf2(x, vmulsign_vd_vd_vd(vcast_vd_d(M_PI/4), x))), r);
+#ifdef ENABLE_QPX
+  r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), vsel_vd_vm_vd_vd(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), vcast_vd_d(M_PI), vcast_vd_d(0.0)), r);
+#else
   r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), (vdouble)vand_vm_vm_vm(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), (vmask)vcast_vd_d(M_PI)), r);
+#endif
 
+#ifdef ENABLE_QPX
+  r = vsel_vd_vm_vd_vd(vor_vm_vm_vm(visnan_vm_vd(x), visnan_vm_vd(y)), vec_splats(NAN), vmulsign_vd_vd_vd(r, y));
+#else
   r = (vdouble)vor_vm_vm_vm(vor_vm_vm_vm(visnan_vm_vd(x), visnan_vm_vd(y)), (vmask)vmulsign_vd_vd_vd(r, y));
+#endif
   return r;
 }
 
