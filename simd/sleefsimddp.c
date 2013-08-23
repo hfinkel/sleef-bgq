@@ -761,7 +761,11 @@ vdouble xexp(vdouble d) {
 
   u = vldexp_vd_vd_vi(u, q);
 
+#ifdef ENABLE_QPX
+  u = vsel_vd_vm_vd_vd(visminf_vm_vd(d), vec_splats(0.0), u);
+#else
   u = (vdouble)vandnot_vm_vm_vm(visminf_vm_vd(d), (vmask)u);
+#endif
 
   return u;
 }
