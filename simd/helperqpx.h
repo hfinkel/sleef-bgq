@@ -87,8 +87,8 @@ static INLINE vfloat vneg_vf_vf(vfloat d) { return vec_neg(d); }
 static INLINE vfloat vfma_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_madd(x, y, z); }
 static INLINE vfloat vfmapp_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_madd(x, y, z); }
 static INLINE vfloat vfmapn_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_msub(x, y, z); }
-static INLINE vfloat vfmanp_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmadd(x, y, z); }
-static INLINE vfloat vfmann_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmsub(x, y, z); }
+static INLINE vfloat vfmanp_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmsub(x, y, z); }
+static INLINE vfloat vfmann_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return vec_nmadd(x, y, z); }
 
 static INLINE vfloat vrecsqrt_vf_vf(vfloat d) {
   vfloat e = vec_rsqrtes(d), c = vec_splats(1.5);
