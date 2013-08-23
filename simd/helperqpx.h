@@ -39,7 +39,7 @@ static INLINE vint vsub_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = x.v[j
 static INLINE vint vneg_vi_vi(vint e) { vint r; F04(j) r.v[j] = -e.v[j]; return r; }
 
 static INLINE vint vand_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = x.v[j] & y.v[j]; return r; }
-static INLINE vint vandnot_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = x.v[j] & ~y.v[j]; return r; }
+static INLINE vint vandnot_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = ~x.v[j] & y.v[j]; return r; }
 static INLINE vint vor_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = x.v[j] | y.v[j]; return r; }
 static INLINE vint vxor_vi_vi_vi(vint x, vint y) { vint r; F04(j) r.v[j] = x.v[j] ^ y.v[j]; return r; }
 
@@ -50,7 +50,7 @@ static INLINE vint vsra_vi_vi_i(vint x, int c) { vint r; F04(j) r.v[j] = x.v[j] 
 //
 
 static INLINE vmask vand_vm_vm_vm(vmask x, vmask y) { return vec_and(x, y); }
-static INLINE vmask vandnot_vm_vm_vm(vmask x, vmask y) { return vec_andc(x, y); }
+static INLINE vmask vandnot_vm_vm_vm(vmask x, vmask y) { return vec_andc(y, x); }
 static INLINE vmask vor_vm_vm_vm(vmask x, vmask y) { return vec_or(x, y); }
 static INLINE vmask vxor_vm_vm_vm(vmask x, vmask y) { return vec_xor(x, y); }
 
