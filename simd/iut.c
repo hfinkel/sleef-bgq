@@ -40,7 +40,7 @@ int detectFeature() {
     a = xpow(a, a);
     vstoreu(s, a);
 #elif defined(ENABLE_SP)
-    float s[VECTLENSP];
+    float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
     int i;
     for(i=0;i<VECTLENSP;i++) {
       s[i] = 1.0;
@@ -733,7 +733,7 @@ typedef struct {
 #ifdef ENABLE_SP
 
 float xxsinf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -749,7 +749,7 @@ float xxsinf(float d) {
 }
 
 float xxcosf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -765,7 +765,7 @@ float xxcosf(float d) {
 }
 
 float xxtanf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -781,7 +781,7 @@ float xxtanf(float d) {
 }
 
 float xxasinf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -797,7 +797,7 @@ float xxasinf(float d) {
 }
 
 float xxacosf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -813,7 +813,7 @@ float xxacosf(float d) {
 }
 
 float xxatanf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -829,7 +829,7 @@ float xxatanf(float d) {
 }
 
 float xxatan2f(float y, float x) {
-  float s[VECTLENSP], t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP))), t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -851,7 +851,7 @@ float xxatan2f(float y, float x) {
 }
 
 float xxlogf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -867,7 +867,7 @@ float xxlogf(float d) {
 }
 
 float xxexpf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -883,7 +883,7 @@ float xxexpf(float d) {
 }
 
 float xxsqrtf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -899,7 +899,7 @@ float xxsqrtf(float d) {
 }
 
 float xxcbrtf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -915,7 +915,7 @@ float xxcbrtf(float d) {
 }
 
 float2 xxsincosf(float d) {
-  float s[VECTLENSP], t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP))), t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -940,7 +940,7 @@ float2 xxsincosf(float d) {
 }
 
 float xxsinhf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -956,7 +956,7 @@ float xxsinhf(float d) {
 }
 
 float xxcoshf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -972,7 +972,7 @@ float xxcoshf(float d) {
 }
 
 float xxtanhf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -988,7 +988,7 @@ float xxtanhf(float d) {
 }
 
 float xxasinhf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1004,7 +1004,7 @@ float xxasinhf(float d) {
 }
 
 float xxacoshf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1020,7 +1020,7 @@ float xxacoshf(float d) {
 }
 
 float xxatanhf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1036,7 +1036,7 @@ float xxatanhf(float d) {
 }
 
 float xxexp2f(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1052,7 +1052,7 @@ float xxexp2f(float d) {
 }
 
 float xxexp10f(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1068,7 +1068,7 @@ float xxexp10f(float d) {
 }
 
 float xxexpm1f(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1084,7 +1084,7 @@ float xxexpm1f(float d) {
 }
 
 float xxlog10f(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1100,7 +1100,7 @@ float xxlog10f(float d) {
 }
 
 float xxlog1pf(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1116,7 +1116,7 @@ float xxlog1pf(float d) {
 }
 
 float xxpowf(float x, float y) {
-  float s[VECTLENSP], t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP))), t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1143,8 +1143,8 @@ float xxpowf(float x, float y) {
 }
 
 float xxldexpf(float x, int q) {
-  float s[VECTLENSP];
-  int t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
+  int t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(double)RAND_MAX*20000-10000;
@@ -1168,7 +1168,7 @@ float xxldexpf(float x, int q) {
 }
 
 float xxsinf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1184,7 +1184,7 @@ float xxsinf_u1(float d) {
 }
 
 float xxcosf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1200,7 +1200,7 @@ float xxcosf_u1(float d) {
 }
 
 float xxtanf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1216,7 +1216,7 @@ float xxtanf_u1(float d) {
 }
 
 float xxasinf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1232,7 +1232,7 @@ float xxasinf_u1(float d) {
 }
 
 float xxacosf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1248,7 +1248,7 @@ float xxacosf_u1(float d) {
 }
 
 float xxatanf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1264,7 +1264,7 @@ float xxatanf_u1(float d) {
 }
 
 float xxatan2f_u1(float y, float x) {
-  float s[VECTLENSP], t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP))), t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1286,7 +1286,7 @@ float xxatan2f_u1(float y, float x) {
 }
 
 float xxlogf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1302,7 +1302,7 @@ float xxlogf_u1(float d) {
 }
 
 float xxcbrtf_u1(float d) {
-  float s[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
@@ -1318,7 +1318,7 @@ float xxcbrtf_u1(float d) {
 }
 
 float2 xxsincosf_u1(float d) {
-  float s[VECTLENSP], t[VECTLENSP];
+  float s[VECTLENSP] __attribute__((aligned(4*VECTLENSP))), t[VECTLENSP] __attribute__((aligned(4*VECTLENSP)));
   int i;
   for(i=0;i<VECTLENSP;i++) {
     s[i] = random()/(float)RAND_MAX*20000-10000;
