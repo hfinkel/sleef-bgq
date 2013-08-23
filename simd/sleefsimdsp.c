@@ -50,29 +50,53 @@
 
 //
 
+#ifdef ENABLE_QPX
+#define vsel_vi2_vf_vf_vi2_vi2 vsel_vi_vd_vd_vi_vi
+#else
 static INLINE vint2 vsel_vi2_vf_vf_vi2_vi2(vfloat f0, vfloat f1, vint2 x, vint2 y) {
   vint2 m2 = vcast_vi2_vm(vlt_vm_vf_vf(f0, f1));
   return vor_vi2_vi2_vi2(vand_vi2_vi2_vi2(m2, x), vandnot_vi2_vi2_vi2(m2, y));
 }
+#endif
 
+#ifdef ENABLE_QPX
+#define vsignbit_vm_vf vsignbit_vm_vd
+#else
 static INLINE vmask vsignbit_vm_vf(vfloat f) {
   return vand_vm_vm_vm((vmask)f, (vmask)vcast_vf_f(-0.0f));
 }
+#endif
 
+#ifdef ENABLE_QPX
+#define vmulsign_vf_vf_vf vmulsign_vd_vd_vd
+#else
 static INLINE vfloat vmulsign_vf_vf_vf(vfloat x, vfloat y) {
   return (vfloat)vxor_vm_vm_vm((vmask)x, vsignbit_vm_vf(y));
 }
+#endif
 
+#ifdef ENABLE_QPX
+#define vsign_vf_vf vsign_vd_vd
+#else
 static INLINE vfloat vsign_vf_vf(vfloat f) {
   return (vfloat)vor_vm_vm_vm((vmask)vcast_vf_f(1.0f), vand_vm_vm_vm((vmask)vcast_vf_f(-0.0f), (vmask)f));
 }
+#endif
 
 static INLINE vmask visinf_vm_vf(vfloat d) { return veq_vm_vf_vf(vabs_vf_vf(d), vcast_vf_f(INFINITYf)); }
 static INLINE vmask vispinf_vm_vf(vfloat d) { return veq_vm_vf_vf(d, vcast_vf_f(INFINITYf)); }
 static INLINE vmask visminf_vm_vf(vfloat d) { return veq_vm_vf_vf(d, vcast_vf_f(-INFINITYf)); }
 static INLINE vmask visnan_vm_vf(vfloat d) { return vneq_vm_vf_vf(d, d); }
+#ifdef ENABLE_QPX
+#define visinf2_vf_vf_vm visinf2
+#else
 static INLINE vfloat visinf2_vf_vf_vm(vfloat d, vfloat m) { return (vfloat)vand_vm_vm_vm(visinf_vm_vf(d), vor_vm_vm_vm(vsignbit_vm_vf(d), (vmask)m)); }
+#endif
+#ifdef ENABLE_QPX
+#define visinff visinf
+#else
 static INLINE vfloat visinff(vfloat d) { return visinf2_vf_vf_vm(d, vcast_vf_f(1.0f)); }
+#endif
 
 #ifdef ENABLE_QPX
 #define vilogbp1_vi2_vf vilogbp1_vi_vd
@@ -778,7 +802,16 @@ vfloat xsqrtf(vfloat d) {
   return u;
 }
 #else
+#ifdef ENABLE_QPX
+vfloat xsqrtf(vfloat d) {
+  vfloat u = vsqrt_vf_vf(d);
+  u = vsel_vf_vm_vf_vf(vispinf_vm_vf(d), vcast_vf_f(INFINITYf), u);
+  u = vmulsign_vf_vf_vf(u, d);
+  return u;
+}
+#else
 vfloat xsqrtf(vfloat d) { return vsqrt_vf_vf(d); }
+#endif
 #endif
 
 vfloat xcbrtf(vfloat d) {
