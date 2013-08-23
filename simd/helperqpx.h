@@ -221,7 +221,6 @@ static INLINE double vcast_d_vd(vdouble v) {
 
 #define vcast_f_vf vcast_d_vd
 
-// FIXME: Users of this function are making an assumption about masking not true here!
 static INLINE vmask vsignbit_vm_vd(vdouble d) {
   return vec_cpsgn(d, vec_splats(0.0));
 }
