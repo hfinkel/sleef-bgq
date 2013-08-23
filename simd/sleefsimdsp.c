@@ -137,7 +137,11 @@ static INLINE vfloat vldexp_vf_vf_vi2(vfloat x, vint2 q) {
 #endif
 }
 
+#ifdef ENABLE_QPX
+vfloat xldexpf(vfloat x, vint2 q) { return vec_rsp(vldexp_vf_vf_vi2(x, q)); }
+#else
 vfloat xldexpf(vfloat x, vint2 q) { return vldexp_vf_vf_vi2(x, q); }
+#endif
 
 vfloat xsinf(vfloat d) {
   vint2 q;

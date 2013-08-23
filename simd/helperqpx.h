@@ -93,14 +93,17 @@ static INLINE vfloat vfmann_vf_vf_vf_vf(vfloat x, vfloat y, vfloat z) { return v
 static INLINE vfloat vrecsqrt_vf_vf(vfloat d) {
   vfloat e = vec_rsqrtes(d), c = vec_splats(1.5);
   vfloat h = vec_sub(vec_mul(d, c), d);
-  return vec_mul(e, vec_sub(c, vec_mul(h, vec_mul(e, e))));
+  for (int i = 0; i < 2; ++i )
+    e = vec_mul(e, vec_sub(c, vec_mul(h, vec_mul(e, e))));
+  return e;
 }
 
 #define ENABLE_RECSQRT_SP
 
 static INLINE vfloat vrec_vf_vf(vfloat x) {
   vfloat e = vec_res(x), c = vec_splats(1.0);
-  e = vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
+  for (int i = 0; i < 2; ++i )
+    e = vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
   return vec_sel(e, vec_cpsgn(x, vec_splats(0.0)), vec_cmpeq(vec_abs(x), vec_splats(INFINITY)));
 }
 
