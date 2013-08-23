@@ -800,7 +800,11 @@ vdouble xlog_u1(vdouble d) {
   vdouble x = vadd_vd_vd_vd(s.x, s.y);
 
   x = vsel_vd_vm_vd_vd(vispinf_vm_vd(d), vcast_vd_d(INFINITY), x);
+#ifdef ENABLE_QPX
+  x = vsel_vd_vm_vd_vd(vgt_vm_vd_vd(vcast_vd_d(0), d), vcast_vd_d(NAN), x);
+#else
   x = (vdouble)vor_vm_vm_vm(vgt_vm_vd_vd(vcast_vd_d(0), d), (vmask)x);
+#endif
   x = vsel_vd_vm_vd_vd(veq_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d(-INFINITY), x);
 
   return x;
