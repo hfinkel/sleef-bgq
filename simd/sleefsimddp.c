@@ -641,8 +641,13 @@ vdouble xacos_u1(vdouble d) {
 
   vmask m;
   m = vneq_vm_vd_vd(vabs_vd_vd(d), vcast_vd_d(1));
+#ifdef ENABLE_QPX
+  d2.x = vsel_vd_vm_vd_vd(m, d2.x, vec_splats(0.0));
+  d2.y = vsel_vd_vm_vd_vd(m, d2.y, vec_splats(0.0));
+#else
   d2.x = (vdouble)vand_vm_vm_vm(m, (vmask)d2.x);
   d2.y = (vdouble)vand_vm_vm_vm(m, (vmask)d2.y);
+#endif
   m = vlt_vm_vd_vd(d, vcast_vd_d(0));
   d2 = vsel_vd2_vm_vd2_vd2(m, ddadd_vd2_vd2_vd2(vcast_vd2_d_d(3.141592653589793116, 1.2246467991473532072e-16), d2), d2);
 
@@ -691,7 +696,11 @@ vdouble xatan(vdouble s) {
   t = vmla_vd_vd_vd_vd(s, vmul_vd_vd_vd(t, u), s);
 
   t = vsel_vd_vm_vd_vd(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(1)), vcast_vi_i(1)), vsub_vd_vd_vd(vcast_vd_d(M_PI/2), t), t);
+#ifdef ENABLE_QPX
+  t = vec_mul(t, vec_neg(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(2))));
+#else
   t = (vdouble)vxor_vm_vm_vm(vand_vm_vm_vm(veq_vm_vi_vi(vand_vi_vi_vi(q, vcast_vi_i(2)), vcast_vi_i(2)), (vmask)vcast_vd_d(-0.0)), (vmask)t);
+#endif
 
   return t;
 }
