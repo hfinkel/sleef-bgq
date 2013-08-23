@@ -10,7 +10,7 @@ typedef struct { int v[4] __attribute__((aligned(16))); } vint;
 #define vmask vdouble
 
 #define vfloat vdouble
-typedef struct { long v[4] __attribute__((aligned(32))); } vint2;
+#define vint2  vint
 
 #define ENABLE_FMA_DP
 #define ENABLE_FMA_SP
@@ -173,33 +173,31 @@ static INLINE vint vsel_vi_vd_vd_vi_vi(vdouble d0, vdouble d1, vint x, vint y) {
 
 //
 
-static INLINE vint2 vrint_vi2_vf(vfloat vd) { vint2 r; vec_st(vec_ctid(vd), 0, r.v); return r; }
-static INLINE vint2 vtruncate_vi2_vf(vfloat vd) { vint2 r; vec_st(vec_ctidz(vd), 0, r.v); return r; }
-static INLINE vfloat vcast_vf_vi2(vint2 vi) { return vec_cfid(vec_ld(0, vi.v)); }
+#define vrint_vi2_vf vrint_vi_vd
+#define vtruncate_vi2_vf vtruncate_vi_vd
+#define vcast_vf_vi2 vcast_vd_vi
 
 #define vcast_vi2_vm vtruncate_vi2_vf
 #define vcast_vm_vi2 vcast_vf_vi2
 
 #define vcast_vd_vi2 vcast_vf_vi2
 
-static INLINE vint2 vcast_vi2_i(int i) { vint2 r; F04(j) r.v[j] = i; return r; }
+#define vcast_vi2_i vcast_vi_i
 
-static INLINE vint2 vadd_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] + y.v[j]; return r; }
-static INLINE vint2 vsub_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] - y.v[j]; return r; }
-static INLINE vint2 vneg_vi2_vi2(vint2 e) { vint2 r; F04(j) r.v[j] = -e.v[j]; return r; }
+#define vadd_vi2_vi2_vi2 vadd_vi_vi_vi
+#define vsub_vi2_vi2_vi2 vsub_vi_vi_vi
+#define vneg_vi2_vi2 vneg_vi_vi
 
-static INLINE vint2 vand_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] & y.v[j]; return r; }
-static INLINE vint2 vandnot_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] & ~y.v[j]; return r; }
-static INLINE vint2 vor_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] | y.v[j]; return r; }
-static INLINE vint2 vxor_vi2_vi2_vi2(vint2 x, vint2 y) { vint2 r; F04(j) r.v[j] = x.v[j] ^ y.v[j]; return r; }
+#define vand_vi2_vi2_vi2 vand_vi_vi_vi
+#define vandnot_vi2_vi2_vi2 vandnot_vi_vi_vi
+#define vor_vi2_vi2_vi2 vor_vi_vi_vi
+#define vxor_vi2_vi2_vi2 vxor_vi_vi_vi
 
-static INLINE vint2 vsll_vi2_vi2_i(vint2 x, int c) { vint2 r; F04(j) r.v[j] = x.v[j] << c; return r; }
-static INLINE vint2 vsrl_vi2_vi2_i(vint2 x, int c) { vint2 r; F04(j) r.v[j] = ((unsigned long) x.v[j]) >> c; return r; }
-static INLINE vint2 vsra_vi2_vi2_i(vint2 x, int c) { vint2 r; F04(j) r.v[j] = x.v[j] >> c; return r; }
+#define vsll_vi2_vi2_i vsll_vi_vi_i
+#define vsrl_vi2_vi2_i vsrl_vi_vi_i
+#define vsra_vi2_vi2_i vsra_vi_vi_i
 
-static INLINE vmask veq_vm_vi2_vi2(vint2 x, vint2 y) {
-  return vec_cmpeq(vcast_vd_vi2(x), vcast_vd_vi2(y));
-}
+#define veq_vm_vi2_vi2 veq_vm_vi_vi
 
 static INLINE vmask vgt_vm_vi2_vi2(vint2 x, vint2 y) {
   return vec_cmpgt(vcast_vd_vi2(x), vcast_vd_vi2(y));
@@ -299,12 +297,12 @@ static INLINE vint vilogbp1_vi_vd(vdouble d) {
   vmask m = vec_cmplt(d, vec_splats(4.9090934652977266E-91));
   d = vsel_vd_vm_vd_vd(m, vec_mul(d, vec_splats(2.037035976334486E90)), d);
 
-  vint2 e;
-  vec_st(d, 0, e.v);
+  long e[4] __attribute__((aligned(32)));
+  vec_st(d, 0, e);
 
   vint r;
   F04(j) {
-    int q = (e.v[j] >> 52) & 0x7ff;
+    int q = (e[j] >> 52) & 0x7ff;
     r.v[j] = (m[j] >= 0) ? q - (300 + 0x03fe) : q - 0x03fe;
   }
 
@@ -312,12 +310,12 @@ static INLINE vint vilogbp1_vi_vd(vdouble d) {
 }
 
 static INLINE vdouble vupper_vd_vd(vdouble d) {
-  vint2 q;
-  vec_st(d, 0, q.v);
+  long q[4] __attribute__((aligned(32)));
+  vec_st(d, 0, q);
 
-  F04(j) q.v[j] &= 0xfffffffff8000000;
+  F04(j) q[j] &= 0xfffffffff8000000;
 
-  return vec_ld(0, q.v);
+  return vec_ld(0, q);
 }
 
 #define vupper_vf_vf vupper_vd_vd

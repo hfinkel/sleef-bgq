@@ -29,6 +29,10 @@
 #include "helperneon.h"
 #endif
 
+#ifdef ENABLE_QPX
+#include "helperqpx.h"
+#endif
+
 //
 
 #include "df.h"

@@ -132,7 +132,7 @@ typedef struct { int v[4] __attribute__((aligned(16))); } vint;
 #define vmask vdouble
 
 #define vfloat vdouble
-typedef struct { long v[4] __attribute__((aligned(32))); } vint2;
+#define vint2  vint
 
 #define F04(i) for (int i = 0; i < 4; ++i)
 
@@ -146,6 +146,7 @@ static vint2 vloadui2(int32_t *p) { vint2 r; F04(j) r.v[j] = p[j]; return r; }
 static void vstoreui2(int32_t *p, vint2 v) { F04(j) p[j] = v.v[j]; }
 
 #define ENABLE_DP
+#define ENABLE_SP
 
 #endif
 
