@@ -944,7 +944,11 @@ vdouble xsinh(vdouble x) {
 
   y = vsel_vd_vm_vd_vd(vor_vm_vm_vm(vgt_vm_vd_vd(vabs_vd_vd(x), vcast_vd_d(710)), visnan_vm_vd(y)), vcast_vd_d(INFINITY), y);
   y = vmulsign_vd_vd_vd(y, x);
+#ifdef ENABLE_QPX
+  y = vsel_vd_vm_vd_vd(visnan_vm_vd(x), vcast_vd_d(NAN), y);
+#else
   y = (vdouble)vor_vm_vm_vm(visnan_vm_vd(x), (vmask)y);
+#endif
 
   return y;
 }
