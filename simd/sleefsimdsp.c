@@ -584,7 +584,7 @@ vfloat xatan2f(vfloat y, vfloat x) {
   r = vsel_vf_vm_vf_vf(visinf_vm_vf(y), vsub_vf_vf_vf(vcast_vf_f((float)(M_PI/2)), visinf2_vf_vf_vm(x, vmulsign_vf_vf_vf(vcast_vf_f((float)(M_PI/4)), x))), r);
 
 #ifdef ENABLE_QPX
-  r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), vsel_vd_vm_vd_vd(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), vcast_vd_d(M_PI), vcast_vd_d(0.0)), r);
+  r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), vsel_vd_vm_vd_vd(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), vcast_vd_d((float)M_PI), vcast_vd_d(0.0)), r);
 #else
   r = vsel_vf_vm_vf_vf(veq_vm_vf_vf(y, vcast_vf_f(0.0f)), (vfloat)vand_vm_vm_vm(veq_vm_vf_vf(vsign_vf_vf(x), vcast_vf_f(-1.0f)), (vmask)vcast_vf_f((float)M_PI)), r);
 #endif
@@ -620,7 +620,7 @@ vfloat xacosf(vfloat d) {
   x = vsqrt_vf_vf(x);
   x = vmulsign_vf_vf_vf(atan2kf(x, vabs_vf_vf(d)), d);
 #ifdef ENABLE_QPX
-  y = vsel_vd_vm_vd_vd(vlt_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d(M_PI), vcast_vd_d(0.0));
+  y = vsel_vd_vm_vd_vd(vlt_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d((float)M_PI), vcast_vd_d(0.0));
 #else
   y = (vfloat)vand_vm_vm_vm(vlt_vm_vf_vf(d, vcast_vf_f(0.0f)), (vmask)vcast_vf_f((float)M_PI));
 #endif
@@ -683,7 +683,7 @@ vfloat xatan2f_u1(vfloat y, vfloat x) {
   r = vsel_vf_vm_vf_vf(vor_vm_vm_vm(visinf_vm_vf(x), veq_vm_vf_vf(x, vcast_vf_f(0))), vsub_vf_vf_vf(vcast_vf_f(M_PI/2), visinf2_vf_vf_vm(x, vmulsign_vf_vf_vf(vcast_vf_f(M_PI/2), x))), r);
   r = vsel_vf_vm_vf_vf(visinf_vm_vf(y), vsub_vf_vf_vf(vcast_vf_f(M_PI/2), visinf2_vf_vf_vm(x, vmulsign_vf_vf_vf(vcast_vf_f(M_PI/4), x))), r);
 #ifdef ENABLE_QPX
-  r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), vsel_vd_vm_vd_vd(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), vcast_vd_d(M_PI), vcast_vd_d(0.0)), r);
+  r = vsel_vd_vm_vd_vd(veq_vm_vd_vd(y, vcast_vd_d(0.0)), vsel_vd_vm_vd_vd(veq_vm_vd_vd(vsign_vd_vd(x), vcast_vd_d(-1.0)), vcast_vd_d((float)M_PI), vcast_vd_d(0.0)), r);
 #else
   r = vsel_vf_vm_vf_vf(veq_vm_vf_vf(y, vcast_vf_f(0.0)), (vfloat)vand_vm_vm_vm(veq_vm_vf_vf(vsign_vf_vf(x), vcast_vf_f(-1.0)), (vmask)vcast_vf_f(M_PI)), r);
 #endif
