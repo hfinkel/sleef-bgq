@@ -100,7 +100,8 @@ static INLINE vfloat vrecsqrt_vf_vf(vfloat d) {
 
 static INLINE vfloat vrec_vf_vf(vfloat x) {
   vfloat e = vec_res(x), c = vec_splats(1.0);
-  return vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
+  e = vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
+  return vec_sel(e, vec_cpsgn(x, vec_splats(0.0)), vec_cmpeq(vec_abs(x), vec_splats(INFINITY)));
 }
 
 static INLINE vfloat vdiv_vf_vf_vf(vfloat x, vfloat y) { return vec_mul(x, vrec_vf_vf(y)); }
@@ -143,7 +144,7 @@ static INLINE vdouble vrec_vd_vd(vdouble x) {
   vdouble e = vec_re(x), c = vec_splats(1.0);
   for (int i = 0; i < 2; ++i)
     e = vec_add(e, vec_mul(e, vec_sub(c, vec_mul(x, e))));
-  return e;
+  return vec_sel(e, vec_cpsgn(x, vec_splats(0.0)), vec_cmpeq(vec_abs(x), vec_splats(INFINITY)));
 }
 
 static INLINE vdouble vdiv_vd_vd_vd(vdouble x, vdouble y) { return vec_mul(x, vrec_vd_vd(y)); }
