@@ -847,27 +847,60 @@ vdouble xpow(vdouble x, vdouble y) {
 
   vdouble result = expk(ddmul_vd2_vd2_vd(logk(vabs_vd_vd(x)), y));
 
+#ifdef ENABLE_QPX
+  result = vmul_vd_vd_vd(result,
+			 vsel_vd_vm_vd_vd(vgt_vm_vd_vd(x, vcast_vd_d(0)),
+					  vcast_vd_d(1),
+					  vsel_vd_vm_vd_vd(yisnint, vcast_vd_d(NAN),
+					  	vsel_vd_vm_vd_vd(yisodd, vcast_vd_d(-1.0), vcast_vd_d(1)))));
+#else
   result = vmul_vd_vd_vd(result,
 			 vsel_vd_vm_vd_vd(vgt_vm_vd_vd(x, vcast_vd_d(0)),
 					  vcast_vd_d(1),
 					  (vdouble)vor_vm_vm_vm(yisnint, (vmask)vsel_vd_vm_vd_vd(yisodd, vcast_vd_d(-1.0), vcast_vd_d(1)))));
+#endif
 
+#ifdef ENABLE_QPX
+  vdouble efx = vmul_vd_vd_vd(vsub_vd_vd_vd(vabs_vd_vd(x), vcast_vd_d(1)), vsign_vd_vd(y));
+#else
   vdouble efx = (vdouble)vxor_vm_vm_vm((vmask)vsub_vd_vd_vd(vabs_vd_vd(x), vcast_vd_d(1)), vsignbit_vm_vd(y));
+#endif
 
+#ifdef ENABLE_QPX
+  result = vsel_vd_vm_vd_vd(visinf_vm_vd(y),
+			    vsel_vd_vm_vd_vd(vlt_vm_vd_vd(efx, vcast_vd_d(0.0)), vcast_vd_d(0.0),
+						      vsel_vd_vm_vd_vd(veq_vm_vd_vd(efx, vcast_vd_d(0.0)),
+								       vcast_vd_d(1.0),
+								       vcast_vd_d(INFINITY))),
+			    result);
+#else
   result = vsel_vd_vm_vd_vd(visinf_vm_vd(y),
 			    (vdouble)vandnot_vm_vm_vm(vlt_vm_vd_vd(efx, vcast_vd_d(0.0)),
 						      (vmask)vsel_vd_vm_vd_vd(veq_vm_vd_vd(efx, vcast_vd_d(0.0)),
 									      vcast_vd_d(1.0),
 									      vcast_vd_d(INFINITY))),
 			    result);
+#endif
 
+#ifdef ENABLE_QPX
+  result = vsel_vd_vm_vd_vd(vor_vm_vm_vm(visinf_vm_vd(x), veq_vm_vd_vd(x, vcast_vd_d(0.0))),
+			    vmul_vd_vd_vd(vsel_vd_vm_vd_vd(yisodd, vsign_vd_vd(x), vcast_vd_d(1.0)),
+					  vsel_vd_vm_vd_vd(vlt_vm_vd_vd(vsel_vd_vm_vd_vd(veq_vm_vd_vd(x, vcast_vd_d(0.0)), vneg_vd_vd(y), y), vcast_vd_d(0.0)),
+							   vcast_vd_d(0.0), vcast_vd_d(INFINITY))),
+			    result);
+#else
   result = vsel_vd_vm_vd_vd(vor_vm_vm_vm(visinf_vm_vd(x), veq_vm_vd_vd(x, vcast_vd_d(0.0))),
 			    vmul_vd_vd_vd(vsel_vd_vm_vd_vd(yisodd, vsign_vd_vd(x), vcast_vd_d(1.0)),
 					  (vdouble)vandnot_vm_vm_vm(vlt_vm_vd_vd(vsel_vd_vm_vd_vd(veq_vm_vd_vd(x, vcast_vd_d(0.0)), vneg_vd_vd(y), y), vcast_vd_d(0.0)),
 								   (vmask)vcast_vd_d(INFINITY))),
 			    result);
+#endif
 
+#ifdef ENABLE_QPX
+  result = vsel_vd_vm_vd_vd(vor_vm_vm_vm(visnan_vm_vd(x), visnan_vm_vd(y)), vcast_vd_d(NAN), result);
+#else
   result = (vdouble)vor_vm_vm_vm(vor_vm_vm_vm(visnan_vm_vd(x), visnan_vm_vd(y)), (vmask)result);
+#endif
 
   result = vsel_vd_vm_vd_vd(vor_vm_vm_vm(veq_vm_vd_vd(y, vcast_vd_d(0)), veq_vm_vd_vd(x, vcast_vd_d(1))), vcast_vd_d(1), result);
 
