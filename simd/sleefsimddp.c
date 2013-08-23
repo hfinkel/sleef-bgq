@@ -728,7 +728,11 @@ vdouble xlog(vdouble d) {
   x = vmla_vd_vd_vd_vd(x, t, vmul_vd_vd_vd(vcast_vd_d(0.693147180559945286226764), vcast_vd_vi(e)));
 
   x = vsel_vd_vm_vd_vd(vispinf_vm_vd(d), vcast_vd_d(INFINITY), x);
+#ifdef ENABLE_QPX
+  x = vsel_vd_vm_vd_vd(vgt_vm_vd_vd(vcast_vd_d(0), d), vec_splats(NAN), x);
+#else
   x = (vdouble)vor_vm_vm_vm(vgt_vm_vd_vd(vcast_vd_d(0), d), (vmask)x);
+#endif
   x = vsel_vd_vm_vd_vd(veq_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d(-INFINITY), x);
 
   return x;
