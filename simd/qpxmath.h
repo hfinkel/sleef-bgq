@@ -586,47 +586,47 @@ log1pd4(vector4double a) {
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 sinf4(vector4double d) {
-  return __xsinf(d);
+  return __xsinf_u1(d);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 cosf4(vector4double d) {
-  return __xcosf(d);
+  return __xcosf_u1(d);
 }
 
 static __inline__ void __attribute__((__always_inline__, __nodebug__))
 sincosf4(vector4double d, vector4double *ds, vector4double *dc) {
-  __xsincosf(d, ds, dc);
+  __xsincosf_u1(d, ds, dc);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 tanf4(vector4double d) {
-  return __xtanf(d);
+  return __xtanf_u1(d);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 asinf4(vector4double s) {
-  return __xasinf(s);
+  return __xasinf_u1(s);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 acosf4(vector4double s) {
-  return __xacosf(s);
+  return __xacosf_u1(s);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 atanf4(vector4double s) {
-  return __xatanf(s);
+  return __xatanf_u1(s);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 atan2f4(vector4double y, vector4double x) {
-  return __xatan2f(y, x);
+  return __xatan2f_u1(y, x);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 logf4(vector4double d) {
-  return __xlogf(d);
+  return __xlogf_u1(d);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
@@ -636,7 +636,7 @@ expf4(vector4double d) {
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 cbrtf4(vector4double s) {
-  return __xcbrtf(s);
+  return __xcbrtf_u1(s);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
