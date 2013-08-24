@@ -21,6 +21,12 @@
  *===-----------------------------------------------------------------------===
  */
 
+/*
+ * The implementation of these functions is derived from SLEEF (SIMD Library
+ * for Evaluating Elementary Functions) by Naoki Shibata. For more information
+ * on SLEEF, see: http://shibatch.sourceforge.net/
+ */
+
 #ifndef _QPXMATH_H_INCLUDED
 #define _QPXMATH_H_INCLUDED
 
