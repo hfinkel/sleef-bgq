@@ -185,11 +185,11 @@ vfloat xldexpf(vfloat x, const int *r) {
 #else
 vfloat xldexpf(vfloat x, vint2 q) {
 #endif
-  vfloat r = vldexp_vf_vf_vi2(x, q);
+  vfloat s = vldexp_vf_vf_vi2(x, q);
 #ifdef ENABLE_QPX
-  r = vec_rsp(r);
+  s = vec_rsp(s);
 #endif
- return r;
+ return s;
 }
 
 vfloat xsinf(vfloat d) {
