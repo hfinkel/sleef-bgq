@@ -29,6 +29,49 @@
 #include "helperqpx.h"
 #endif
 
+#ifdef ADD_UNDERSCORES
+#define xldexp __xldexp
+#define xilogb __xilogb
+
+#define xsin __xsin
+#define xcos __xcos
+#define xsincos __xsincos
+#define xtan __xtan
+#define xasin __xasin
+#define xacos __xacos
+#define xatan __xatan
+#define xatan2 __xatan2
+#define xlog __xlog
+#define xexp __xexp
+#define xpow __xpow
+
+#define xsinh __xsinh
+#define xcosh __xcosh
+#define xtanh __xtanh
+#define xasinh __xasinh
+#define xacosh __xacosh
+#define xatanh __xatanh
+
+#define xcbrt __xcbrt
+
+#define xexp2 __xexp2
+#define xexp10 __xexp10
+#define xexpm1 __xexpm1
+#define xlog10 __xlog10
+#define xlog1p __xlog1p
+
+#define xsin_u1 __xsin_u1
+#define xcos_u1 __xcos_u1
+#define xsincos_u1 __xsincos_u1
+#define xtan_u1 __xtan_u1
+#define xasin_u1 __xasin_u1
+#define xacos_u1 __xacos_u1
+#define xatan_u1 __xatan_u1
+#define xatan2_u1 __xatan2_u1
+#define xlog_u1 __xlog_u1
+#define xcbrt_u1 __xcbrt_u1
+#endif
+
 //
 
 #include "dd.h"

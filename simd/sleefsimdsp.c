@@ -33,6 +33,47 @@
 #include "helperqpx.h"
 #endif
 
+#ifdef ADD_UNDERSCORES
+#define xldexpf __xldexpf
+
+#define xsinf __xsinf
+#define xcosf __xcosf
+#define xsincosf __xsincosf
+#define xtanf __xtanf
+#define xasinf __xasinf
+#define xacosf __xacosf
+#define xatanf __xatanf
+#define xatan2f __xatan2f
+#define xlogf __xlogf
+#define xexpf __xexpf
+#define xcbrtf __xcbrtf
+#define xsqrtf __xsqrtf
+
+#define xpowf __xpowf
+#define xsinhf __xsinhf
+#define xcoshf __xcoshf
+#define xtanhf __xtanhf
+#define xasinhf __xasinhf
+#define xacoshf __xacoshf
+#define xatanhf __xatanhf
+#define xexp2f __xexp2f
+#define xexp10f __xexp10f
+#define xexpm1f __xexpm1f
+#define xlog10f __xlog10f
+#define xlog1pf __xlog1pf
+
+#define xsinf_u1 __xsinf_u1
+#define xcosf_u1 __xcosf_u1
+#define xsincosf_u1 __xsincosf_u1
+#define xtanf_u1 __xtanf_u1
+#define xasinf_u1 __xasinf_u1
+#define xacosf_u1 __xacosf_u1
+#define xatanf_u1 __xatanf_u1
+#define xatan2f_u1 __xatan2f_u1
+#define xlogf_u1 __xlogf_u1
+#define xcbrtf_u1 __xcbrtf_u1
+#endif
+
 //
 
 #include "df.h"
