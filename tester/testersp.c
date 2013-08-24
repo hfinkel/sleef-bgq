@@ -2460,7 +2460,7 @@ void do_test() {
 
     fprintf(stderr, "powf : %lf ... ", max);
 
-    showResult(max < 1);
+    showResult(max < 1.01);
   }
 
   {
