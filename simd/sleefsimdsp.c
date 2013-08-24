@@ -178,11 +178,19 @@ static INLINE vfloat vldexp_vf_vf_vi2(vfloat x, vint2 q) {
 #endif
 }
 
-#ifdef ENABLE_QPX
-vfloat xldexpf(vfloat x, vint2 q) { return vec_rsp(vldexp_vf_vf_vi2(x, q)); }
+#ifdef NO_EXT_STRUCTS
+vfloat xldexpf(vfloat x, const int *r) {
+  vint2 q;
+  F04(j) q.v[j] = r[j];
 #else
-vfloat xldexpf(vfloat x, vint2 q) { return vldexp_vf_vf_vi2(x, q); }
+vfloat xldexpf(vfloat x, vint2 q) {
 #endif
+  vfloat r = vldexp_vf_vf_vi2(x, q);
+#ifdef ENABLE_QPX
+  r = vec_rsp(r);
+#endif
+ return r;
+}
 
 vfloat xsinf(vfloat d) {
   vint2 q;
@@ -265,7 +273,11 @@ vfloat xcosf(vfloat d) {
   return u;
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincosf(vfloat d, vfloat *ds, vfloat *dc) {
+#else
 vfloat2 xsincosf(vfloat d) {
+#endif
   vint2 q;
   vmask m;
   vfloat u, s, t, rx, ry;
@@ -333,7 +345,12 @@ vfloat2 xsincosf(vfloat d) {
   r.y = vec_rsp(r.y);
 #endif
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
 vfloat xtanf(vfloat d) {
@@ -461,7 +478,11 @@ vfloat xcosf_u1(vfloat d) {
   return u;
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincosf_u1(vfloat d, vfloat *ds, vfloat *dc) {
+#else
 vfloat2 xsincosf_u1(vfloat d) {
+#endif
   vint2 q;
   vmask m;
   vfloat u, rx, ry;
@@ -530,7 +551,12 @@ vfloat2 xsincosf_u1(vfloat d) {
   r.y = vec_rsp(r.y);
 #endif
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
 vfloat xtanf_u1(vfloat d) {

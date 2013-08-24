@@ -102,13 +102,31 @@
 
 //
 
-vdouble xldexp(vdouble x, vint q) { return vldexp_vd_vd_vi(x, q); }
+#ifdef NO_EXT_STRUCTS
+vdouble xldexp(vdouble x, const int *r) {
+  vint q;
+  F04(j) q.v[j] = r[j];
+#else
+vdouble xldexp(vdouble x, vint q) {
+#endif
+  return vldexp_vd_vd_vi(x, q);
+}
 
+#ifdef NO_EXT_STRUCTS
+void xilogb(vdouble d, int *l) {
+#else
 vint xilogb(vdouble d) {
+#endif
   vdouble e = vcast_vd_vi(vsub_vi_vi_vi(vilogbp1_vi_vd(vabs_vd_vd(d)), vcast_vi_i(1)));
   e = vsel_vd_vm_vd_vd(veq_vm_vd_vd(d, vcast_vd_d(0)), vcast_vd_d(-2147483648.0), e);
   e = vsel_vd_vm_vd_vd(veq_vm_vd_vd(vabs_vd_vd(d), vcast_vd_d(INFINITY)), vcast_vd_d(2147483647), e);
-  return vrint_vi_vd(e);
+
+  vint r = vrint_vi_vd(e);
+#ifdef NO_EXT_STRUCTS
+  F04(j) l[j] = r.v[j];
+#else
+  return r;
+#endif
 }
 
 vdouble xsin(vdouble d) {
@@ -259,7 +277,11 @@ vdouble xcos_u1(vdouble d) {
   return u;
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincos(vdouble d, vdouble *ds, vdouble *dc) {
+#else
 vdouble2 xsincos(vdouble d) {
+#endif
   vint q;
   vmask m;
   vdouble u, s, t, rx, ry;
@@ -326,10 +348,19 @@ vdouble2 xsincos(vdouble d) {
   r.y = (vdouble)vor_vm_vm_vm(m, (vmask)r.y);
 #endif
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincos_u1(vdouble d, vdouble *ds, vdouble *dc) {
+#else
 vdouble2 xsincos_u1(vdouble d) {
+#endif
   vint q;
   vmask m;
   vdouble u, rx, ry;
@@ -398,7 +429,12 @@ vdouble2 xsincos_u1(vdouble d) {
   r.y = (vdouble)vor_vm_vm_vm(m, (vmask)r.y);
 #endif
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
 vdouble xtan(vdouble d) {
