@@ -75,6 +75,7 @@ vector4double __xlog_u1(vector4double d);
 vector4double __xcbrt_u1(vector4double d);
 
 vector4double __xldexpf(vector4double x, const int *q);
+void __xilogbf(vector4double d, int *l);
 
 vector4double __xsinf(vector4double d);
 vector4double __xcosf(vector4double d);
@@ -295,6 +296,11 @@ xcbrt_u1(vector4double d) {
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))
 xldexpf(vector4double x, const int *q) {
   return __xldexpf(x, q);
+}
+
+static __inline__ void __attribute__((__always_inline__, __nodebug__))
+xilogbf(vector4double d, int *l) {
+  __xilogbf(d, l);
 }
 
 static __inline__ vector4double __attribute__((__always_inline__, __nodebug__))

@@ -35,6 +35,7 @@
 
 #ifdef ADD_UNDERSCORES
 #define xldexpf __xldexpf
+#define xilogbf __xilogbf
 
 #define xsinf __xsinf
 #define xcosf __xcosf
@@ -148,6 +149,16 @@ static INLINE vint2 vilogbp1_vi2_vf(vfloat d) {
   vint2 q = vand_vi2_vi2_vi2(vsrl_vi2_vi2_i(vcast_vi2_vm(vreinterpret_vm_vf(d)), 23), vcast_vi2_i(0xff));
   q = vsub_vi2_vi2_vi2(q, vsel_vi2_vm_vi2_vi2(m, vcast_vi2_i(64 + 0x7e), vcast_vi2_i(0x7e)));
   return q;
+}
+#endif
+
+#ifdef ENABLE_QPX
+#ifdef ADD_UNDERSCORES
+#define xilogb __xilogb
+#endif
+void xilogb(vdouble d, int *l);
+void xilogbf(vfloat d, int *l) {
+  xilogb(vec_rsp(d), l);
 }
 #endif
 
