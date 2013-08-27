@@ -1,0 +1,261 @@
+!===---- qpxmath.h - QPX SLEEF functions ----------------------------------===
+!
+! Permission is hereby granted, free of charge, to any person obtaining a copy
+! of this software and associated documentation files (the "Software"), to deal
+! in the Software without restriction, including without limitation the rights
+! to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+! copies of the Software, and to permit persons to whom the Software is
+! furnished to do so, subject to the following conditions:
+!
+! The above copyright notice and this permission notice shall be included in
+! all copies or substantial portions of the Software.
+!
+! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+! THE SOFTWARE.
+!
+!===-----------------------------------------------------------------------===
+
+! The implementation of these functions is derived from SLEEF (SIMD Library
+! for Evaluating Elementary Functions) by Naoki Shibata. For more information
+! on SLEEF, see: http://shibatch.sourceforge.net/
+
+      interface
+
+      vector(real(8)) function xldexp (x, q) bind(C, name="__xldexp")
+        vector(real(8)), value   :: x
+        integer(4), dimension(4) :: q
+      end function
+      subroutine xilogb (d, l) bind(C, name="__xilogb")
+        vector(real(8)), value   :: d
+        integer(4), dimension(4) :: l
+      end subroutine
+
+      vector(real(8)) function xsin (d) bind(C, name="__xsin")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcos (d) bind(C, name="__xcos")
+        vector(real(8)), value   :: d
+      end function
+      subroutine xsincos (d, ds, dc) bind(C, name="__xsincos")
+        vector(real(8)), value   :: d
+        vector(real(8))          :: ds, dc
+      end subroutine
+      vector(real(8)) function xtan (d) bind(C, name="__xtan")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xasin (s) bind(C, name="__xasin")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xacos (s) bind(C, name="__xacos")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan (s) bind(C, name="__xatan")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan2 (y, x) bind(C, name="__xatan2")
+        vector(real(8)), value   :: y, x
+      end function
+      vector(real(8)) function xlog (d) bind(C, name="__xlog")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xexp (d) bind(C, name="__xexp")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xpow (x, y) bind(C, name="__xpow")
+        vector(real(8)), value   :: x, y
+      end function
+
+      vector(real(8)) function xsinh (d) bind(C, name="__xsinh")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcosh (d) bind(C, name="__xcosh")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xtanh (d) bind(C, name="__xtanh")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xasinh (s) bind(C, name="__xasinh")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xacosh (s) bind(C, name="__xacosh")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatanh (s) bind(C, name="__xatanh")
+        vector(real(8)), value   :: s
+      end function
+
+      vector(real(8)) function xcbrt (d) bind(C, name="__xcbrt")
+        vector(real(8)), value   :: d
+      end function
+
+      vector(real(8)) function xexp2 (a) bind(C, name="__xexp2")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xexp10 (a) bind(C, name="__xexp10")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xexpm1 (a) bind(C, name="__xexpm1")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xlog10 (a) bind(C, name="__xlog10")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xlog1p (a) bind(C, name="__xlog1p")
+        vector(real(8)), value   :: a
+      end function
+
+      vector(real(8)) function xsin_u1 (d) bind(C, name="__xsin_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcos_u1 (d) bind(C, name="__xcos_u1")
+        vector(real(8)), value   :: d
+      end function
+      subroutine xsincosu1 (d, ds, dc) bind(C, name="__xsincos_u1")
+        vector(real(8)), value   :: d
+        vector(real(8))          :: ds, dc
+      end subroutine
+      vector(real(8)) function xtan_u1 (d) bind(C, name="__xtan_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xasin_u1 (s) bind(C, name="__xasin_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xacos_u1 (s) bind(C, name="__xacos_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan_u1 (s) bind(C, name="__xatan_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan2_u1 (y, x) bind(C, name="__xatan2_u1")
+        vector(real(8)), value   :: y, x
+      end function
+      vector(real(8)) function xlog_u1 (d) bind(C, name="__xlog_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcbrt_u1 (d) bind(C, name="__xcbrt_u1")
+        vector(real(8)), value   :: d
+      end function
+
+      vector(real(8)) function xldexpf (x, q) bind(C, name="__xldexpf")
+        vector(real(8)), value   :: x
+        integer(4), dimension(4) :: q
+      end function
+      subroutine xilogbf (d, l) bind(C, name="__xilogbf")
+        vector(real(8)), value   :: d
+        integer(4), dimension(4) :: l
+      end subroutine
+
+      vector(real(8)) function xsinf (d) bind(C, name="__xsinf")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcosf (d) bind(C, name="__xcosf")
+        vector(real(8)), value   :: d
+      end function
+      subroutine xsincosf (d, ds, dc) bind(C, name="__xsincosf")
+        vector(real(8)), value   :: d
+        vector(real(8))          :: ds, dc
+      end subroutine
+      vector(real(8)) function xtanf (d) bind(C, name="__xtanf")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xasinf (s) bind(C, name="__xasinf")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xacosf (s) bind(C, name="__xacosf")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatanf (s) bind(C, name="__xatanf")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan2f (y, x) bind(C, name="__xatan2f")
+        vector(real(8)), value   :: y, x
+      end function
+      vector(real(8)) function xlogf (d) bind(C, name="__xlogf")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xexpf (d) bind(C, name="__xexpf")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcbrtf (s) bind(C, name="__xcbrtf")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xsqrtf (s) bind(C, name="__xsqrtf")
+        vector(real(8)), value   :: s
+      end function
+
+      vector(real(8)) function xpowf (x, y) bind(C, name="__xpowf")
+        vector(real(8)), value   :: x, y
+      end function
+      vector(real(8)) function xsinhf (x) bind(C, name="__xsinhf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xcoshf (x) bind(C, name="__xcoshf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xtanhf (x) bind(C, name="__xtanhf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xasinhf (x) bind(C, name="__xasinhf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xacoshf (x) bind(C, name="__xacoshf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xatanhf (x) bind(C, name="__xatanhf")
+        vector(real(8)), value   :: x
+      end function
+      vector(real(8)) function xexp2f (a) bind(C, name="__xexp2f")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xexp10f (a) bind(C, name="__xexp10f")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xexpm1f (a) bind(C, name="__xexpm1f")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xlog10f (a) bind(C, name="__xlog10f")
+        vector(real(8)), value   :: a
+      end function
+      vector(real(8)) function xlog1pf (a) bind(C, name="__xlog1pf")
+        vector(real(8)), value   :: a
+      end function
+
+      vector(real(8)) function xsinf_u1 (d) bind(C, name="__xsinf_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcosf_u1 (d) bind(C, name="__xcosf_u1")
+        vector(real(8)), value   :: d
+      end function
+      subroutine xsincosfu1 (d, ds, dc) bind(C, name="__xsincosf_u1")
+        vector(real(8)), value   :: d
+        vector(real(8))          :: ds, dc
+      end subroutine
+      vector(real(8)) function xtanf_u1 (d) bind(C, name="__xtanf_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xasinf_u1 (s) bind(C, name="__xasinf_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xacosf_u1 (s) bind(C, name="__xacosf_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatanf_u1 (s) bind(C, name="__xatanf_u1")
+        vector(real(8)), value   :: s
+      end function
+      vector(real(8)) function xatan2f_u1 (y, x) bind(C, name="__xatan2f_u1")
+        vector(real(8)), value   :: y, x
+      end function
+      vector(real(8)) function xlogf_u1 (d) bind(C, name="__xlogf_u1")
+        vector(real(8)), value   :: d
+      end function
+      vector(real(8)) function xcbrtf_u1 (s) bind(C, name="__xcbrtf_u1")
+        vector(real(8)), value   :: s
+      end function
+
+      end interface
+
