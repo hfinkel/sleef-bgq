@@ -5,6 +5,11 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifdef __xlc__
+#undef vec_neg
+#define vec_neg(a) __tg_builtin("vec_neg",a)
+#endif
+
 typedef vector4double vdouble;
 typedef struct { int v[4] __attribute__((aligned(16))); } vint;
 #define vmask vdouble
