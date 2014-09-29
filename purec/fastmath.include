@@ -28,12 +28,11 @@
 
       real(8) function fast_ldexp (x, q) bind(C, name="__fast_ldexp")
         real(8), value   :: x
-        integer(4), dimension(4) :: q
+        integer(4), value :: q
       end function
-      subroutine fast_ilogb (d, l) bind(C, name="__fast_ilogb")
+      integer(4) function fast_ilogb (d) bind(C, name="__fast_ilogb")
         real(8), value   :: d
-        integer(4), dimension(4) :: l
-      end subroutine
+      end function
 
       real(8) function fast_sin (d) bind(C, name="__fast_sin")
         real(8), value   :: d
@@ -143,12 +142,11 @@
 
       real(4) function fast_ldexpf (x, q) bind(C, name="__fast_ldexpf")
         real(4), value   :: x
-        integer(4), dimension(4) :: q
+        integer(4), value :: q
       end function
-      subroutine fast_ilogbf (d, l) bind(C, name="__fast_ilogbf")
+      integer(4) function fast_ilogbf (d) bind(C, name="__fast_ilogbf")
         real(4), value   :: d
-        integer(4), dimension(4) :: l
-      end subroutine
+      end function
 
       real(4) function fast_sinf (d) bind(C, name="__fast_sinf")
         real(4), value   :: d

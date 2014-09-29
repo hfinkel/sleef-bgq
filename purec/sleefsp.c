@@ -495,7 +495,11 @@ float xcosf_u1(float d) {
   return u;
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincosf(float d, float *ds, float *dc) {
+#else
 float2 xsincosf(float d) {
+#endif
   int q;
   float u, s, t;
   float2 r;
@@ -534,10 +538,19 @@ float2 xsincosf(float d) {
 
   if (xisinff(d)) { r.x = r.y = NANf; }
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincosf_u1(float d, float *ds, float *dc) {
+#else
 float2 xsincosf_u1(float d) {
+#endif
   int q;
   float u;
   float2 r, s, t, x;
@@ -577,7 +590,12 @@ float2 xsincosf_u1(float d) {
 
   if (xisinff(d)) { r.x = r.y = NAN; }
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
 float xtanf(float d) {

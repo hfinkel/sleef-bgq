@@ -694,7 +694,11 @@ double xcos_u1(double d) {
   return u;
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincos(double d, double *ds, double *dc) {
+#else
 double2 xsincos(double d) {
+#endif
   int q;
   double u, s, t;
   double2 r;
@@ -738,10 +742,19 @@ double2 xsincos(double d) {
 
   if (xisinf(d)) { r.x = r.y = NAN; }
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
+#ifdef NO_EXT_STRUCTS
+void xsincos_u1(double d, double *ds, double *dc) {
+#else
 double2 xsincos_u1(double d) {
+#endif
   int q;
   double u;
   double2 r, s, t, x;
@@ -786,7 +799,12 @@ double2 xsincos_u1(double d) {
 
   if (xisinf(d)) { r.x = r.y = NAN; }
 
+#ifdef NO_EXT_STRUCTS
+  *ds = r.x;
+  *dc = r.y;
+#else
   return r;
+#endif
 }
 
 double xtan(double d) {

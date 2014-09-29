@@ -33,8 +33,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-double __fast_ldexp(double x, const int *q);
-void __fast_ilogb(double d, int *l);
+double __fast_ldexp(double x, int q);
+int __fast_ilogb(double d);
 
 double __fast_sin(double d);
 double __fast_cos(double d);
@@ -74,8 +74,8 @@ double __fast_atan2_u1(double y, double x);
 double __fast_log_u1(double d);
 double __fast_cbrt_u1(double d);
 
-float __fast_ldexpf(float x, const int *q);
-void __fast_ilogbf(float d, int *l);
+float __fast_ldexpf(float x, int q);
+int __fast_ilogbf(float d);
 
 float __fast_sinf(float d);
 float __fast_cosf(float d);
@@ -119,13 +119,13 @@ float __fast_cbrtf_u1(float s);
 
 #if !FASTMATH_NO_GLOBAL_POLLUTION
 static __inline__ double __attribute__((__always_inline__, __nodebug__))
-fast_ldexp(double x, const int *q) {
+fast_ldexp(double x, int q) {
   return __fast_ldexp(x, q);
 }
 
-static __inline__ void __attribute__((__always_inline__, __nodebug__))
-fast_ilogb(double d, int *l) {
-  __fast_ilogb(d, l);
+static __inline__ int __attribute__((__always_inline__, __nodebug__))
+fast_ilogb(double d) {
+  return __fast_ilogb(d);
 }
 
 static __inline__ double __attribute__((__always_inline__, __nodebug__))
@@ -294,13 +294,13 @@ fast_cbrt_u1(double d) {
 }
 
 static __inline__ float __attribute__((__always_inline__, __nodebug__))
-fast_ldexpf(float x, const int *q) {
+fast_ldexpf(float x, int q) {
   return __fast_ldexpf(x, q);
 }
 
-static __inline__ void __attribute__((__always_inline__, __nodebug__))
-fast_ilogbf(float d, int *l) {
-  __fast_ilogbf(d, l);
+static __inline__ int __attribute__((__always_inline__, __nodebug__))
+fast_ilogbf(float d) {
+  return __fast_ilogbf(d);
 }
 
 static __inline__ float __attribute__((__always_inline__, __nodebug__))
