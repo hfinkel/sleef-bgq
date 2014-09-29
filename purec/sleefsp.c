@@ -4,6 +4,12 @@
 #include <stdint.h>
 #include <math.h>
 
+#if defined (__GNUC__) || defined (__INTEL_COMPILER) || defined (__clang__)
+#define INLINE __attribute__((always_inline))
+#else
+#define INLINE inline
+#endif
+
 #include "nonnumber.h"
 
 #define PI4_Af 0.78515625f
@@ -19,7 +25,7 @@
 
 #define NDEBUG
 
-static inline int32_t floatToRawIntBits(float d) {
+static INLINE int32_t floatToRawIntBits(float d) {
   union {
     float f;
     int32_t i;
@@ -28,7 +34,7 @@ static inline int32_t floatToRawIntBits(float d) {
   return tmp.i;
 }
 
-static inline float intBitsToFloat(int32_t i) {
+static INLINE float intBitsToFloat(int32_t i) {
   union {
     float f;
     int32_t i;
@@ -37,24 +43,24 @@ static inline float intBitsToFloat(int32_t i) {
   return tmp.f;
 }
 
-static inline float xfabsf(float x) {
+static INLINE float xfabsf(float x) {
   return intBitsToFloat(0x7fffffffL & floatToRawIntBits(x));
 }
 
-static inline float mulsignf(float x, float y) {
+static INLINE float mulsignf(float x, float y) {
   return intBitsToFloat(floatToRawIntBits(x) ^ (floatToRawIntBits(y) & (1 << 31)));
 }
 
-static inline float signf(float d) { return mulsignf(1, d); }
-static inline float mlaf(float x, float y, float z) { return x * y + z; }
-static inline float xrintf(float x) { return x < 0 ? (int)(x - 0.5f) : (int)(x + 0.5f); }
+static INLINE float signf(float d) { return mulsignf(1, d); }
+static INLINE float mlaf(float x, float y, float z) { return x * y + z; }
+static INLINE float xrintf(float x) { return x < 0 ? (int)(x - 0.5f) : (int)(x + 0.5f); }
 
-static inline int xisnanf(float x) { return x != x; }
-static inline int xisinff(float x) { return x == INFINITYf || x == -INFINITYf; }
-static inline int xisminff(float x) { return x == -INFINITYf; }
-static inline int xispinff(float x) { return x == INFINITYf; }
+static INLINE int xisnanf(float x) { return x != x; }
+static INLINE int xisinff(float x) { return x == INFINITYf || x == -INFINITYf; }
+static INLINE int xisminff(float x) { return x == -INFINITYf; }
+static INLINE int xispinff(float x) { return x == INFINITYf; }
 
-static inline int ilogbp1f(float d) {
+static INLINE int ilogbp1f(float d) {
   int m = d < 5.421010862427522E-20f;
   d = m ? 1.8446744073709552E19f * d : d;
   int q = (floatToRawIntBits(d) >> 23) & 0xff;
@@ -62,11 +68,11 @@ static inline int ilogbp1f(float d) {
   return q;
 }
 
-static inline float pow2if(int q) {
+static INLINE float pow2if(int q) {
   return intBitsToFloat(((int32_t)(q + 0x7f)) << 23);
 }
 
-static inline float ldexpkf(float x, int q) {
+static INLINE float ldexpkf(float x, int q) {
   float u;
   int m;
   m = q >> 31;
@@ -96,17 +102,17 @@ static int checkfp(float x) {
 }
 #endif
 
-static inline float upperf(float d) {
+static INLINE float upperf(float d) {
   return intBitsToFloat(floatToRawIntBits(d) & 0xfffff000);
 }
 
-static inline float2 df(float h, float l) {
+static INLINE float2 df(float h, float l) {
   float2 ret;
   ret.x = h; ret.y = l;
   return ret;
 }
 
-static inline float2 dfnormalize_f2_f2(float2 t) {
+static INLINE float2 dfnormalize_f2_f2(float2 t) {
   float2 s;
 
   s.x = t.x + t.y;
@@ -115,7 +121,7 @@ static inline float2 dfnormalize_f2_f2(float2 t) {
   return s;
 }
 
-static inline float2 dfscale_f2_f2_f(float2 d, float s) {
+static INLINE float2 dfscale_f2_f2_f(float2 d, float s) {
   float2 r;
 
   r.x = d.x * s;
@@ -124,7 +130,7 @@ static inline float2 dfscale_f2_f2_f(float2 d, float s) {
   return r;
 }
 
-static inline float2 dfneg_f2_f2(float2 d) {
+static INLINE float2 dfneg_f2_f2(float2 d) {
   float2 r;
 
   r.x = -d.x;
@@ -133,7 +139,7 @@ static inline float2 dfneg_f2_f2(float2 d) {
   return r;
 }
 
-static inline float2 dfadd_f2_f_f(float x, float y) {
+static INLINE float2 dfadd_f2_f_f(float x, float y) {
   // |x| >= |y|
 
   float2 r;
@@ -148,7 +154,7 @@ static inline float2 dfadd_f2_f_f(float x, float y) {
   return r;
 }
 
-static inline float2 dfadd2_f2_f_f(float x, float y) {
+static INLINE float2 dfadd2_f2_f_f(float x, float y) {
   float2 r;
 
   r.x = x + y;
@@ -158,7 +164,7 @@ static inline float2 dfadd2_f2_f_f(float x, float y) {
   return r;
 }
 
-static inline float2 dfadd_f2_f2_f(float2 x, float y) {
+static INLINE float2 dfadd_f2_f2_f(float2 x, float y) {
   // |x| >= |y|
 
   float2 r;
@@ -173,7 +179,7 @@ static inline float2 dfadd_f2_f2_f(float2 x, float y) {
   return r;
 }
 
-static inline float2 dfadd2_f2_f2_f(float2 x, float y) {
+static INLINE float2 dfadd2_f2_f2_f(float2 x, float y) {
   // |x| >= |y|
 
   float2 r;
@@ -186,7 +192,7 @@ static inline float2 dfadd2_f2_f2_f(float2 x, float y) {
   return r;
 }
 
-static inline float2 dfadd_f2_f_f2(float x, float2 y) {
+static INLINE float2 dfadd_f2_f_f2(float x, float2 y) {
   // |x| >= |y|
 
   float2 r;
@@ -201,7 +207,7 @@ static inline float2 dfadd_f2_f_f2(float x, float2 y) {
   return r;
 }
 
-static inline float2 dfadd_f2_f2_f2(float2 x, float2 y) {
+static INLINE float2 dfadd_f2_f2_f2(float2 x, float2 y) {
   // |x| >= |y|
 
   float2 r;
@@ -216,7 +222,7 @@ static inline float2 dfadd_f2_f2_f2(float2 x, float2 y) {
   return r;
 }
 
-static inline float2 dfadd2_f2_f2_f2(float2 x, float2 y) {
+static INLINE float2 dfadd2_f2_f2_f2(float2 x, float2 y) {
   float2 r;
 
   r.x  = x.x + y.x;
@@ -227,7 +233,7 @@ static inline float2 dfadd2_f2_f2_f2(float2 x, float2 y) {
   return r;
 }
 
-static inline float2 dfsub_f2_f2_f2(float2 x, float2 y) {
+static INLINE float2 dfsub_f2_f2_f2(float2 x, float2 y) {
   // |x| >= |y|
 
   float2 r;
@@ -242,7 +248,7 @@ static inline float2 dfsub_f2_f2_f2(float2 x, float2 y) {
   return r;
 }
 
-static inline float2 dfdiv_f2_f2_f2(float2 n, float2 d) {
+static INLINE float2 dfdiv_f2_f2_f2(float2 n, float2 d) {
   float t = 1.0f / d.x;
   float dh  = upperf(d.x), dl  = d.x - dh;
   float th  = upperf(t  ), tl  = t   - th;
@@ -260,7 +266,7 @@ static inline float2 dfdiv_f2_f2_f2(float2 n, float2 d) {
   return q;
 }
 
-static inline float2 dfmul_f2_f_f(float x, float y) {
+static INLINE float2 dfmul_f2_f_f(float x, float y) {
   float xh = upperf(x), xl = x - xh;
   float yh = upperf(y), yl = y - yh;
   float2 r;
@@ -271,7 +277,7 @@ static inline float2 dfmul_f2_f_f(float x, float y) {
   return r;
 }
 
-static inline float2 dfmul_f2_f2_f(float2 x, float y) {
+static INLINE float2 dfmul_f2_f2_f(float2 x, float y) {
   float xh = upperf(x.x), xl = x.x - xh;
   float yh = upperf(y  ), yl = y   - yh;
   float2 r;
@@ -282,7 +288,7 @@ static inline float2 dfmul_f2_f2_f(float2 x, float y) {
   return r;
 }
 
-static inline float2 dfmul_f2_f2_f2(float2 x, float2 y) {
+static INLINE float2 dfmul_f2_f2_f2(float2 x, float2 y) {
   float xh = upperf(x.x), xl = x.x - xh;
   float yh = upperf(y.x), yl = y.x - yh;
   float2 r;
@@ -293,7 +299,7 @@ static inline float2 dfmul_f2_f2_f2(float2 x, float2 y) {
   return r;
 }
 
-static inline float2 dfsqu_f2_f2(float2 x) {
+static INLINE float2 dfsqu_f2_f2(float2 x) {
   float xh = upperf(x.x), xl = x.x - xh;
   float2 r;
 
@@ -303,7 +309,7 @@ static inline float2 dfsqu_f2_f2(float2 x) {
   return r;
 }
 
-static inline float2 dfrec_f2_f(float d) {
+static INLINE float2 dfrec_f2_f(float d) {
   float t = 1.0f / d;
   float dh = upperf(d), dl = d - dh;
   float th = upperf(t), tl = t - th;
@@ -315,7 +321,7 @@ static inline float2 dfrec_f2_f(float d) {
   return q;
 }
 
-static inline float2 dfrec_f2_f2(float2 d) {
+static INLINE float2 dfrec_f2_f2(float2 d) {
   float t = 1.0f / d.x;
   float dh = upperf(d.x), dl = d.x - dh;
   float th = upperf(t  ), tl = t   - th;
@@ -327,7 +333,7 @@ static inline float2 dfrec_f2_f2(float2 d) {
   return q;
 }
 
-static inline float2 dfsqrt_f2_f2(float2 d) {
+static INLINE float2 dfsqrt_f2_f2(float2 d) {
   float t = sqrtf(d.x + d.y);
   return dfscale_f2_f2_f(dfmul_f2_f2_f2(dfadd2_f2_f2_f2(d, dfmul_f2_f_f(t, t)), dfrec_f2_f(t)), 0.5f);
 }
@@ -626,7 +632,7 @@ float xatanf(float s) {
   return t;
 }
 
-static inline float atan2kf(float y, float x) {
+static INLINE float atan2kf(float y, float x) {
   float s, t, u;
   int q = 0;
 
@@ -785,7 +791,7 @@ float xexpf(float d) {
 //#define L2Bf 1.4285906217992305756e-06
 //#define L2Cf 1.619850954759360917e-11
 
-static inline float expkf(float2 d) {
+static INLINE float expkf(float2 d) {
   int q = (int)xrintf((d.x + d.y) * R_LN2f);
   float2 s, t;
   float u;
@@ -811,7 +817,7 @@ static inline float expkf(float2 d) {
   return ldexpkf(t.x + t.y, q);
 }
 
-static inline float2 logkf(float d) {
+static INLINE float2 logkf(float d) {
   float2 x, x2;
   float m, t;
   int e;
@@ -842,7 +848,7 @@ float xlogf_u1(float d) {
   return x;
 }
 
-static inline float2 expk2f(float2 d) {
+static INLINE float2 expk2f(float2 d) {
   int q = (int)xrintf((d.x + d.y) * R_LN2f);
   float2 s, t;
   float u;
@@ -922,7 +928,7 @@ float xtanhf(float x) {
   return y;
 }
 
-static inline float2 logk2f(float2 d) {
+static INLINE float2 logk2f(float2 d) {
   float2 x, x2, m;
   float t;
   int e;
