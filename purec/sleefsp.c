@@ -17,6 +17,8 @@
 #define R_LN2f 1.442695040888963407359924681001892137426645954152985934135449406931f
 #define M_PIf ((float)M_PI)
 
+#define NDEBUG
+
 static inline int32_t floatToRawIntBits(float d) {
   union {
     float f;
