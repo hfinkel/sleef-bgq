@@ -1,0 +1,261 @@
+!===---- fastmath.include - Scalar SLEEF functions ------------------------===
+!
+! Permission is hereby granted, free of charge, to any person obtaining a copy
+! of this software and associated documentation files (the "Software"), to deal
+! in the Software without restriction, including without limitation the rights
+! to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+! copies of the Software, and to permit persons to whom the Software is
+! furnished to do so, subject to the following conditions:
+!
+! The above copyright notice and this permission notice shall be included in
+! all copies or substantial portions of the Software.
+!
+! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+! THE SOFTWARE.
+!
+!===-----------------------------------------------------------------------===
+
+! The implementation of these functions is derived from SLEEF (SIMD Library
+! for Evaluating Elementary Functions) by Naoki Shibata. For more information
+! on SLEEF, see: http://shibatch.sourceforge.net/
+
+      interface
+
+      real(8) function fast_ldexp (x, q) bind(C, name="__fast_ldexp")
+        real(8), value   :: x
+        integer(4), dimension(4) :: q
+      end function
+      subroutine fast_ilogb (d, l) bind(C, name="__fast_ilogb")
+        real(8), value   :: d
+        integer(4), dimension(4) :: l
+      end subroutine
+
+      real(8) function fast_sin (d) bind(C, name="__fast_sin")
+        real(8), value   :: d
+      end function
+      real(8) function fast_cos (d) bind(C, name="__fast_cos")
+        real(8), value   :: d
+      end function
+      subroutine fast_sincos (d, ds, dc) bind(C, name="__fast_sincos")
+        real(8), value   :: d
+        real(8)          :: ds, dc
+      end subroutine
+      real(8) function fast_tan (d) bind(C, name="__fast_tan")
+        real(8), value   :: d
+      end function
+      real(8) function fast_asin (s) bind(C, name="__fast_asin")
+        real(8), value   :: s
+      end function
+      real(8) function fast_acos (s) bind(C, name="__fast_acos")
+        real(8), value   :: s
+      end function
+      real(8) function fast_atan (s) bind(C, name="__fast_atan")
+        real(8), value   :: s
+      end function
+      real(8) function fast_atan2 (y, x) bind(C, name="__fast_atan2")
+        real(8), value   :: y, x
+      end function
+      real(8) function fast_log (d) bind(C, name="__fast_log")
+        real(8), value   :: d
+      end function
+      real(8) function fast_exp (d) bind(C, name="__fast_exp")
+        real(8), value   :: d
+      end function
+      real(8) function fast_pow (x, y) bind(C, name="__fast_pow")
+        real(8), value   :: x, y
+      end function
+
+      real(8) function fast_sinh (d) bind(C, name="__fast_sinh")
+        real(8), value   :: d
+      end function
+      real(8) function fast_cosh (d) bind(C, name="__fast_cosh")
+        real(8), value   :: d
+      end function
+      real(8) function fast_tanh (d) bind(C, name="__fast_tanh")
+        real(8), value   :: d
+      end function
+      real(8) function fast_asinh (s) bind(C, name="__fast_asinh")
+        real(8), value   :: s
+      end function
+      real(8) function fast_acosh (s) bind(C, name="__fast_acosh")
+        real(8), value   :: s
+      end function
+      real(8) function fast_atanh (s) bind(C, name="__fast_atanh")
+        real(8), value   :: s
+      end function
+
+      real(8) function fast_cbrt (d) bind(C, name="__fast_cbrt")
+        real(8), value   :: d
+      end function
+
+      real(8) function fast_exp2 (a) bind(C, name="__fast_exp2")
+        real(8), value   :: a
+      end function
+      real(8) function fast_exp10 (a) bind(C, name="__fast_exp10")
+        real(8), value   :: a
+      end function
+      real(8) function fast_expm1 (a) bind(C, name="__fast_expm1")
+        real(8), value   :: a
+      end function
+      real(8) function fast_log10 (a) bind(C, name="__fast_log10")
+        real(8), value   :: a
+      end function
+      real(8) function fast_log1p (a) bind(C, name="__fast_log1p")
+        real(8), value   :: a
+      end function
+
+      real(8) function fast_sin_u1 (d) bind(C, name="__fast_sin_u1")
+        real(8), value   :: d
+      end function
+      real(8) function fast_cos_u1 (d) bind(C, name="__fast_cos_u1")
+        real(8), value   :: d
+      end function
+      subroutine fast_sincosu1 (d, ds, dc) bind(C, name="__fast_sincos_u1")
+        real(8), value   :: d
+        real(8)          :: ds, dc
+      end subroutine
+      real(8) function fast_tan_u1 (d) bind(C, name="__fast_tan_u1")
+        real(8), value   :: d
+      end function
+      real(8) function fast_asin_u1 (s) bind(C, name="__fast_asin_u1")
+        real(8), value   :: s
+      end function
+      real(8) function fast_acos_u1 (s) bind(C, name="__fast_acos_u1")
+        real(8), value   :: s
+      end function
+      real(8) function fast_atan_u1 (s) bind(C, name="__fast_atan_u1")
+        real(8), value   :: s
+      end function
+      real(8) function fast_atan2_u1 (y, x) bind(C, name="__fast_atan2_u1")
+        real(8), value   :: y, x
+      end function
+      real(8) function fast_log_u1 (d) bind(C, name="__fast_log_u1")
+        real(8), value   :: d
+      end function
+      real(8) function fast_cbrt_u1 (d) bind(C, name="__fast_cbrt_u1")
+        real(8), value   :: d
+      end function
+
+      real(4) function fast_ldexpf (x, q) bind(C, name="__fast_ldexpf")
+        real(4), value   :: x
+        integer(4), dimension(4) :: q
+      end function
+      subroutine fast_ilogbf (d, l) bind(C, name="__fast_ilogbf")
+        real(4), value   :: d
+        integer(4), dimension(4) :: l
+      end subroutine
+
+      real(4) function fast_sinf (d) bind(C, name="__fast_sinf")
+        real(4), value   :: d
+      end function
+      real(4) function fast_cosf (d) bind(C, name="__fast_cosf")
+        real(4), value   :: d
+      end function
+      subroutine fast_sincosf (d, ds, dc) bind(C, name="__fast_sincosf")
+        real(4), value   :: d
+        real(4)          :: ds, dc
+      end subroutine
+      real(4) function fast_tanf (d) bind(C, name="__fast_tanf")
+        real(4), value   :: d
+      end function
+      real(4) function fast_asinf (s) bind(C, name="__fast_asinf")
+        real(4), value   :: s
+      end function
+      real(4) function fast_acosf (s) bind(C, name="__fast_acosf")
+        real(4), value   :: s
+      end function
+      real(4) function fast_atanf (s) bind(C, name="__fast_atanf")
+        real(4), value   :: s
+      end function
+      real(4) function fast_atan2f (y, x) bind(C, name="__fast_atan2f")
+        real(4), value   :: y, x
+      end function
+      real(4) function fast_logf (d) bind(C, name="__fast_logf")
+        real(4), value   :: d
+      end function
+      real(4) function fast_expf (d) bind(C, name="__fast_expf")
+        real(4), value   :: d
+      end function
+      real(4) function fast_cbrtf (s) bind(C, name="__fast_cbrtf")
+        real(4), value   :: s
+      end function
+      real(4) function fast_sqrtf (s) bind(C, name="__fast_sqrtf")
+        real(4), value   :: s
+      end function
+
+      real(4) function fast_powf (x, y) bind(C, name="__fast_powf")
+        real(4), value   :: x, y
+      end function
+      real(4) function fast_sinhf (x) bind(C, name="__fast_sinhf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_coshf (x) bind(C, name="__fast_coshf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_tanhf (x) bind(C, name="__fast_tanhf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_asinhf (x) bind(C, name="__fast_asinhf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_acoshf (x) bind(C, name="__fast_acoshf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_atanhf (x) bind(C, name="__fast_atanhf")
+        real(4), value   :: x
+      end function
+      real(4) function fast_exp2f (a) bind(C, name="__fast_exp2f")
+        real(4), value   :: a
+      end function
+      real(4) function fast_exp10f (a) bind(C, name="__fast_exp10f")
+        real(4), value   :: a
+      end function
+      real(4) function fast_expm1f (a) bind(C, name="__fast_expm1f")
+        real(4), value   :: a
+      end function
+      real(4) function fast_log10f (a) bind(C, name="__fast_log10f")
+        real(4), value   :: a
+      end function
+      real(4) function fast_log1pf (a) bind(C, name="__fast_log1pf")
+        real(4), value   :: a
+      end function
+
+      real(4) function fast_sinf_u1 (d) bind(C, name="__fast_sinf_u1")
+        real(4), value   :: d
+      end function
+      real(4) function fast_cosf_u1 (d) bind(C, name="__fast_cosf_u1")
+        real(4), value   :: d
+      end function
+      subroutine fast_sincosfu1 (d, ds, dc) bind(C, name="__fast_sincosf_u1")
+        real(4), value   :: d
+        real(4)          :: ds, dc
+      end subroutine
+      real(4) function fast_tanf_u1 (d) bind(C, name="__fast_tanf_u1")
+        real(4), value   :: d
+      end function
+      real(4) function fast_asinf_u1 (s) bind(C, name="__fast_asinf_u1")
+        real(4), value   :: s
+      end function
+      real(4) function fast_acosf_u1 (s) bind(C, name="__fast_acosf_u1")
+        real(4), value   :: s
+      end function
+      real(4) function fast_atanf_u1 (s) bind(C, name="__fast_atanf_u1")
+        real(4), value   :: s
+      end function
+      real(4) function fast_atan2f_u1 (y, x) bind(C, name="__fast_atan2f_u1")
+        real(4), value   :: y, x
+      end function
+      real(4) function fast_logf_u1 (d) bind(C, name="__fast_logf_u1")
+        real(4), value   :: d
+      end function
+      real(4) function fast_cbrtf_u1 (s) bind(C, name="__fast_cbrtf_u1")
+        real(4), value   :: s
+      end function
+
+      end interface
+
