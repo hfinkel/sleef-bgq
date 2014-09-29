@@ -25,6 +25,49 @@
 
 #define NDEBUG
 
+#ifdef ADD_UNDERSCORES
+#define xldexp __fast_ldexp
+#define xilogb __fast_ilogb
+
+#define xsin __fast_sin
+#define xcos __fast_cos
+#define xsincos __fast_sincos
+#define xtan __fast_tan
+#define xasin __fast_asin
+#define xacos __fast_acos
+#define xatan __fast_atan
+#define xatan2 __fast_atan2
+#define xlog __fast_log
+#define xexp __fast_exp
+#define xpow __fast_pow
+
+#define xsinh __fast_sinh
+#define xcosh __fast_cosh
+#define xtanh __fast_tanh
+#define xasinh __fast_asinh
+#define xacosh __fast_acosh
+#define xatanh __fast_atanh
+
+#define xcbrt __fast_cbrt
+
+#define xexp2 __fast_exp2
+#define xexp10 __fast_exp10
+#define xexpm1 __fast_expm1
+#define xlog10 __fast_log10
+#define xlog1p __fast_log1p
+
+#define xsin_u1 __fast_sin_u1
+#define xcos_u1 __fast_cos_u1
+#define xsincos_u1 __fast_sincos_u1
+#define xtan_u1 __fast_tan_u1
+#define xasin_u1 __fast_asin_u1
+#define xacos_u1 __fast_acos_u1
+#define xatan_u1 __fast_atan_u1
+#define xatan2_u1 __fast_atan2_u1
+#define xlog_u1 __fast_log_u1
+#define xcbrt_u1 __fast_cbrt_u1
+#endif
+
 static INLINE int64_t doubleToRawLongBits(double d) {
   union {
     double f;

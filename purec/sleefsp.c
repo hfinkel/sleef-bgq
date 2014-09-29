@@ -25,6 +25,48 @@
 
 #define NDEBUG
 
+#ifdef ADD_UNDERSCORES
+#define xldexpf __fast_ldexpf
+#define xilogbf __fast_ilogbf
+
+#define xsinf __fast_sinf
+#define xcosf __fast_cosf
+#define xsincosf __fast_sincosf
+#define xtanf __fast_tanf
+#define xasinf __fast_asinf
+#define xacosf __fast_acosf
+#define xatanf __fast_atanf
+#define xatan2f __fast_atan2f
+#define xlogf __fast_logf
+#define xexpf __fast_expf
+#define xcbrtf __fast_cbrtf
+#define xsqrtf __fast_sqrtf
+
+#define xpowf __fast_powf
+#define xsinhf __fast_sinhf
+#define xcoshf __fast_coshf
+#define xtanhf __fast_tanhf
+#define xasinhf __fast_asinhf
+#define xacoshf __fast_acoshf
+#define xatanhf __fast_atanhf
+#define xexp2f __fast_exp2f
+#define xexp10f __fast_exp10f
+#define xexpm1f __fast_expm1f
+#define xlog10f __fast_log10f
+#define xlog1pf __fast_log1pf
+
+#define xsinf_u1 __fast_sinf_u1
+#define xcosf_u1 __fast_cosf_u1
+#define xsincosf_u1 __fast_sincosf_u1
+#define xtanf_u1 __fast_tanf_u1
+#define xasinf_u1 __fast_asinf_u1
+#define xacosf_u1 __fast_acosf_u1
+#define xatanf_u1 __fast_atanf_u1
+#define xatan2f_u1 __fast_atan2f_u1
+#define xlogf_u1 __fast_logf_u1
+#define xcbrtf_u1 __fast_cbrtf_u1
+#endif
+
 static INLINE int32_t floatToRawIntBits(float d) {
   union {
     float f;
