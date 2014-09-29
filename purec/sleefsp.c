@@ -736,7 +736,7 @@ float xacosf(float d) {
   return mulsignf(atan2kf(sqrtf((1.0f+d)*(1.0f-d)), fabsf(d)), d) + (d < 0 ? (float)M_PI : 0.0f);
 }
 
-static float2 atan2kf_u1(float2 y, float2 x) {
+static INLINE float2 atan2kf_u1(float2 y, float2 x) {
   float u;
   float2 s, t;
   int q = 0;
@@ -1152,7 +1152,7 @@ float xcbrtf_u1(float d) {
   v = dfadd2_f2_f2_f(dfmul_f2_f_f(z, z), y);
   v = dfmul_f2_f2_f(v, d);
   v = dfmul_f2_f2_f2(v, q2);
-  z = ldexpf(v.x + v.y, (e + 6144) / 3 - 2048);
+  z = ldexpkf(v.x + v.y, (e + 6144) / 3 - 2048);
 
   if (xisinff(d)) { z = mulsignf(INFINITYf, q2.x); }
   if (d == 0) { z = mulsignf(0, q2.x); }

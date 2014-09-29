@@ -66,6 +66,9 @@
 #define xatan2_u1 __fast_atan2_u1
 #define xlog_u1 __fast_log_u1
 #define xcbrt_u1 __fast_cbrt_u1
+
+#define xsqrt __fast_xsqrt
+#define xfma __fast_fma
 #endif
 
 static INLINE int64_t doubleToRawLongBits(double d) {
@@ -492,7 +495,7 @@ double xatan(double s) {
   return t;
 }
 
-static double2 atan2k_u1(double2 y, double2 x) {
+static INLINE double2 atan2k_u1(double2 y, double2 x) {
   double u;
   double2 s, t;
   int q = 0;
@@ -1154,6 +1157,7 @@ double xatanh(double x) {
 //
 
 double xfma(double x, double y, double z) {
+#if 0
   union {
     double f;
     long long int i;
@@ -1177,6 +1181,9 @@ double xfma(double x, double y, double z) {
   l2 = (h - (h2 - v)) + (z - v) + l;
 
   return h2 + l2;
+#else
+  return fma(x, y, z);
+#endif
 }
 
 double xsqrt(double d) { // max error : 0.5 ulp
@@ -1263,7 +1270,7 @@ double xcbrt_u1(double d) {
   v = ddadd2_d2_d2_d(ddmul_d2_d_d(z, z), y);
   v = ddmul_d2_d2_d(v, d);
   v = ddmul_d2_d2_d2(v, q2);
-  z = ldexp(v.x + v.y, (e + 6144) / 3 - 2048);
+  z = ldexpk(v.x + v.y, (e + 6144) / 3 - 2048);
 
   if (xisinf(d)) { z = mulsign(INFINITY, q2.x); }
   if (d == 0) { z = mulsign(0, q2.x); }
