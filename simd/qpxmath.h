@@ -33,86 +33,86 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-vector4double __xldexp(vector4double x, const int *q);
+vector4double __xldexp(vector4double x, const int *q) __attribute__((__pure__));
 void __xilogb(vector4double d, int *l);
 
-vector4double __xsin(vector4double d);
-vector4double __xcos(vector4double d);
+vector4double __xsin(vector4double d) __attribute__((__const__));
+vector4double __xcos(vector4double d) __attribute__((__const__));
 void __xsincos(vector4double d, vector4double *ds, vector4double *dc);
-vector4double __xtan(vector4double d);
-vector4double __xasin(vector4double s);
-vector4double __xacos(vector4double s);
-vector4double __xatan(vector4double s);
-vector4double __xatan2(vector4double y, vector4double x);
-vector4double __xlog(vector4double d);
-vector4double __xexp(vector4double d);
-vector4double __xpow(vector4double x, vector4double y);
+vector4double __xtan(vector4double d) __attribute__((__const__));
+vector4double __xasin(vector4double s) __attribute__((__const__));
+vector4double __xacos(vector4double s) __attribute__((__const__));
+vector4double __xatan(vector4double s) __attribute__((__const__));
+vector4double __xatan2(vector4double y, vector4double x) __attribute__((__const__));
+vector4double __xlog(vector4double d) __attribute__((__const__));
+vector4double __xexp(vector4double d) __attribute__((__const__));
+vector4double __xpow(vector4double x, vector4double y) __attribute__((__const__));
 
-vector4double __xsinh(vector4double d);
-vector4double __xcosh(vector4double d);
-vector4double __xtanh(vector4double d);
-vector4double __xasinh(vector4double s);
-vector4double __xacosh(vector4double s);
-vector4double __xatanh(vector4double s);
+vector4double __xsinh(vector4double d) __attribute__((__const__));
+vector4double __xcosh(vector4double d) __attribute__((__const__));
+vector4double __xtanh(vector4double d) __attribute__((__const__));
+vector4double __xasinh(vector4double s) __attribute__((__const__));
+vector4double __xacosh(vector4double s) __attribute__((__const__));
+vector4double __xatanh(vector4double s) __attribute__((__const__));
 
-vector4double __xcbrt(vector4double d);
+vector4double __xcbrt(vector4double d) __attribute__((__const__));
 
-vector4double __xexp2(vector4double a);
-vector4double __xexp10(vector4double a);
-vector4double __xexpm1(vector4double a);
-vector4double __xlog10(vector4double a);
-vector4double __xlog1p(vector4double a);
+vector4double __xexp2(vector4double a) __attribute__((__const__));
+vector4double __xexp10(vector4double a) __attribute__((__const__));
+vector4double __xexpm1(vector4double a) __attribute__((__const__));
+vector4double __xlog10(vector4double a) __attribute__((__const__));
+vector4double __xlog1p(vector4double a) __attribute__((__const__));
 
-vector4double __xsin_u1(vector4double d);
-vector4double __xcos_u1(vector4double d);
+vector4double __xsin_u1(vector4double d) __attribute__((__const__));
+vector4double __xcos_u1(vector4double d) __attribute__((__const__));
 void __xsincos_u1(vector4double d, vector4double *ds, vector4double *dc);
-vector4double __xtan_u1(vector4double d);
-vector4double __xasin_u1(vector4double s);
-vector4double __xacos_u1(vector4double s);
-vector4double __xatan_u1(vector4double s);
-vector4double __xatan2_u1(vector4double y, vector4double x);
-vector4double __xlog_u1(vector4double d);
-vector4double __xcbrt_u1(vector4double d);
+vector4double __xtan_u1(vector4double d) __attribute__((__const__));
+vector4double __xasin_u1(vector4double s) __attribute__((__const__));
+vector4double __xacos_u1(vector4double s) __attribute__((__const__));
+vector4double __xatan_u1(vector4double s) __attribute__((__const__));
+vector4double __xatan2_u1(vector4double y, vector4double x) __attribute__((__const__));
+vector4double __xlog_u1(vector4double d) __attribute__((__const__));
+vector4double __xcbrt_u1(vector4double d) __attribute__((__const__));
 
-vector4double __xldexpf(vector4double x, const int *q);
+vector4double __xldexpf(vector4double x, const int *q) __attribute__((__pure__));
 void __xilogbf(vector4double d, int *l);
 
-vector4double __xsinf(vector4double d);
-vector4double __xcosf(vector4double d);
+vector4double __xsinf(vector4double d) __attribute__((__const__));
+vector4double __xcosf(vector4double d) __attribute__((__const__));
 void __xsincosf(vector4double d, vector4double *ds, vector4double *dc);
-vector4double __xtanf(vector4double d);
-vector4double __xasinf(vector4double s);
-vector4double __xacosf(vector4double s);
-vector4double __xatanf(vector4double s);
-vector4double __xatan2f(vector4double y, vector4double x);
-vector4double __xlogf(vector4double d);
-vector4double __xexpf(vector4double d);
-vector4double __xcbrtf(vector4double s);
-vector4double __xsqrtf(vector4double s);
+vector4double __xtanf(vector4double d) __attribute__((__const__));
+vector4double __xasinf(vector4double s) __attribute__((__const__));
+vector4double __xacosf(vector4double s) __attribute__((__const__));
+vector4double __xatanf(vector4double s) __attribute__((__const__));
+vector4double __xatan2f(vector4double y, vector4double x) __attribute__((__const__));
+vector4double __xlogf(vector4double d) __attribute__((__const__));
+vector4double __xexpf(vector4double d) __attribute__((__const__));
+vector4double __xcbrtf(vector4double s) __attribute__((__const__));
+vector4double __xsqrtf(vector4double s) __attribute__((__const__));
 
-vector4double __xpowf(vector4double x, vector4double y);
-vector4double __xsinhf(vector4double x);
-vector4double __xcoshf(vector4double x);
-vector4double __xtanhf(vector4double x);
-vector4double __xasinhf(vector4double x);
-vector4double __xacoshf(vector4double x);
-vector4double __xatanhf(vector4double x);
-vector4double __xexp2f(vector4double a);
-vector4double __xexp10f(vector4double a);
-vector4double __xexpm1f(vector4double a);
-vector4double __xlog10f(vector4double a);
-vector4double __xlog1pf(vector4double a);
+vector4double __xpowf(vector4double x, vector4double y) __attribute__((__const__));
+vector4double __xsinhf(vector4double x) __attribute__((__const__));
+vector4double __xcoshf(vector4double x) __attribute__((__const__));
+vector4double __xtanhf(vector4double x) __attribute__((__const__));
+vector4double __xasinhf(vector4double x) __attribute__((__const__));
+vector4double __xacoshf(vector4double x) __attribute__((__const__));
+vector4double __xatanhf(vector4double x) __attribute__((__const__));
+vector4double __xexp2f(vector4double a) __attribute__((__const__));
+vector4double __xexp10f(vector4double a) __attribute__((__const__));
+vector4double __xexpm1f(vector4double a) __attribute__((__const__));
+vector4double __xlog10f(vector4double a) __attribute__((__const__));
+vector4double __xlog1pf(vector4double a) __attribute__((__const__));
 
-vector4double __xsinf_u1(vector4double d);
-vector4double __xcosf_u1(vector4double d);
+vector4double __xsinf_u1(vector4double d) __attribute__((__const__));
+vector4double __xcosf_u1(vector4double d) __attribute__((__const__));
 void __xsincosf_u1(vector4double d, vector4double *ds, vector4double *dc);
-vector4double __xtanf_u1(vector4double d);
-vector4double __xasinf_u1(vector4double s);
-vector4double __xacosf_u1(vector4double s);
-vector4double __xatanf_u1(vector4double s);
-vector4double __xatan2f_u1(vector4double y, vector4double x);
-vector4double __xlogf_u1(vector4double d);
-vector4double __xcbrtf_u1(vector4double s);
+vector4double __xtanf_u1(vector4double d) __attribute__((__const__));
+vector4double __xasinf_u1(vector4double s) __attribute__((__const__));
+vector4double __xacosf_u1(vector4double s) __attribute__((__const__));
+vector4double __xatanf_u1(vector4double s) __attribute__((__const__));
+vector4double __xatan2f_u1(vector4double y, vector4double x) __attribute__((__const__));
+vector4double __xlogf_u1(vector4double d) __attribute__((__const__));
+vector4double __xcbrtf_u1(vector4double s) __attribute__((__const__));
 #ifdef __cplusplus
 }
 #endif

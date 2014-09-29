@@ -33,86 +33,86 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-double __fast_ldexp(double x, int q);
-int __fast_ilogb(double d);
+double __fast_ldexp(double x, int q) __attribute__((__const__));
+int __fast_ilogb(double d) __attribute__((__const__));
 
-double __fast_sin(double d);
-double __fast_cos(double d);
+double __fast_sin(double d) __attribute__((__const__));
+double __fast_cos(double d) __attribute__((__const__));
 void __fast_sincos(double d, double *ds, double *dc);
-double __fast_tan(double d);
-double __fast_asin(double s);
-double __fast_acos(double s);
-double __fast_atan(double s);
-double __fast_atan2(double y, double x);
-double __fast_log(double d);
-double __fast_exp(double d);
-double __fast_pow(double x, double y);
+double __fast_tan(double d) __attribute__((__const__));
+double __fast_asin(double s) __attribute__((__const__));
+double __fast_acos(double s) __attribute__((__const__));
+double __fast_atan(double s) __attribute__((__const__));
+double __fast_atan2(double y, double x) __attribute__((__const__));
+double __fast_log(double d) __attribute__((__const__));
+double __fast_exp(double d) __attribute__((__const__));
+double __fast_pow(double x, double y) __attribute__((__const__));
 
-double __fast_sinh(double d);
-double __fast_cosh(double d);
-double __fast_tanh(double d);
-double __fast_asinh(double s);
-double __fast_acosh(double s);
-double __fast_atanh(double s);
+double __fast_sinh(double d) __attribute__((__const__));
+double __fast_cosh(double d) __attribute__((__const__));
+double __fast_tanh(double d) __attribute__((__const__));
+double __fast_asinh(double s) __attribute__((__const__));
+double __fast_acosh(double s) __attribute__((__const__));
+double __fast_atanh(double s) __attribute__((__const__));
 
-double __fast_cbrt(double d);
+double __fast_cbrt(double d) __attribute__((__const__));
 
-double __fast_exp2(double a);
-double __fast_exp10(double a);
-double __fast_expm1(double a);
-double __fast_log10(double a);
-double __fast_log1p(double a);
+double __fast_exp2(double a) __attribute__((__const__));
+double __fast_exp10(double a) __attribute__((__const__));
+double __fast_expm1(double a) __attribute__((__const__));
+double __fast_log10(double a) __attribute__((__const__));
+double __fast_log1p(double a) __attribute__((__const__));
 
-double __fast_sin_u1(double d);
-double __fast_cos_u1(double d);
+double __fast_sin_u1(double d) __attribute__((__const__));
+double __fast_cos_u1(double d) __attribute__((__const__));
 void __fast_sincos_u1(double d, double *ds, double *dc);
-double __fast_tan_u1(double d);
-double __fast_asin_u1(double s);
-double __fast_acos_u1(double s);
-double __fast_atan_u1(double s);
-double __fast_atan2_u1(double y, double x);
-double __fast_log_u1(double d);
-double __fast_cbrt_u1(double d);
+double __fast_tan_u1(double d) __attribute__((__const__));
+double __fast_asin_u1(double s) __attribute__((__const__));
+double __fast_acos_u1(double s) __attribute__((__const__));
+double __fast_atan_u1(double s) __attribute__((__const__));
+double __fast_atan2_u1(double y, double x) __attribute__((__const__));
+double __fast_log_u1(double d) __attribute__((__const__));
+double __fast_cbrt_u1(double d) __attribute__((__const__));
 
-float __fast_ldexpf(float x, int q);
-int __fast_ilogbf(float d);
+float __fast_ldexpf(float x, int q) __attribute__((__const__));
+int __fast_ilogbf(float d) __attribute__((__const__));
 
-float __fast_sinf(float d);
-float __fast_cosf(float d);
+float __fast_sinf(float d) __attribute__((__const__));
+float __fast_cosf(float d) __attribute__((__const__));
 void __fast_sincosf(float d, float *ds, float *dc);
-float __fast_tanf(float d);
-float __fast_asinf(float s);
-float __fast_acosf(float s);
-float __fast_atanf(float s);
-float __fast_atan2f(float y, float x);
-float __fast_logf(float d);
-float __fast_expf(float d);
-float __fast_cbrtf(float s);
-float __fast_sqrtf(float s);
+float __fast_tanf(float d) __attribute__((__const__));
+float __fast_asinf(float s) __attribute__((__const__));
+float __fast_acosf(float s) __attribute__((__const__));
+float __fast_atanf(float s) __attribute__((__const__));
+float __fast_atan2f(float y, float x) __attribute__((__const__));
+float __fast_logf(float d) __attribute__((__const__));
+float __fast_expf(float d) __attribute__((__const__));
+float __fast_cbrtf(float s) __attribute__((__const__));
+float __fast_sqrtf(float s) __attribute__((__const__));
 
-float __fast_powf(float x, float y);
-float __fast_sinhf(float x);
-float __fast_coshf(float x);
-float __fast_tanhf(float x);
-float __fast_asinhf(float x);
-float __fast_acoshf(float x);
-float __fast_atanhf(float x);
-float __fast_exp2f(float a);
-float __fast_exp10f(float a);
-float __fast_expm1f(float a);
-float __fast_log10f(float a);
-float __fast_log1pf(float a);
+float __fast_powf(float x, float y) __attribute__((__const__));
+float __fast_sinhf(float x) __attribute__((__const__));
+float __fast_coshf(float x) __attribute__((__const__));
+float __fast_tanhf(float x) __attribute__((__const__));
+float __fast_asinhf(float x) __attribute__((__const__));
+float __fast_acoshf(float x) __attribute__((__const__));
+float __fast_atanhf(float x) __attribute__((__const__));
+float __fast_exp2f(float a) __attribute__((__const__));
+float __fast_exp10f(float a) __attribute__((__const__));
+float __fast_expm1f(float a) __attribute__((__const__));
+float __fast_log10f(float a) __attribute__((__const__));
+float __fast_log1pf(float a) __attribute__((__const__));
 
-float __fast_sinf_u1(float d);
-float __fast_cosf_u1(float d);
+float __fast_sinf_u1(float d) __attribute__((__const__));
+float __fast_cosf_u1(float d) __attribute__((__const__));
 void __fast_sincosf_u1(float d, float *ds, float *dc);
-float __fast_tanf_u1(float d);
-float __fast_asinf_u1(float s);
-float __fast_acosf_u1(float s);
-float __fast_atanf_u1(float s);
-float __fast_atan2f_u1(float y, float x);
-float __fast_logf_u1(float d);
-float __fast_cbrtf_u1(float s);
+float __fast_tanf_u1(float d) __attribute__((__const__));
+float __fast_asinf_u1(float s) __attribute__((__const__));
+float __fast_acosf_u1(float s) __attribute__((__const__));
+float __fast_atanf_u1(float s) __attribute__((__const__));
+float __fast_atan2f_u1(float y, float x) __attribute__((__const__));
+float __fast_logf_u1(float d) __attribute__((__const__));
+float __fast_cbrtf_u1(float s) __attribute__((__const__));
 #ifdef __cplusplus
 }
 #endif
